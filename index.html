@@ -1,1 +1,734 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bright Dental Care - Clinica Stomatologică Timișoara</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Configurare Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'dental-red': '#7f1d1d', // red-900 custom
+                    }
+                }
+            }
+        }
+    </script>
 
+    <!-- React & ReactDOM & Babel -->
+    <script type="importmap">
+        {
+            "imports": {
+                "react": "https://esm.sh/react@18.2.0",
+                "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+                "lucide-react": "https://esm.sh/lucide-react@0.263.1"
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+        /* Hide scrollbar for cleaner look in some elements */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased selection:bg-red-200 selection:text-red-900">
+    
+    <!-- Containerul unde React va monta aplicatia -->
+    <div id="root"></div>
+
+    <!-- Logica React -->
+    <script type="text/babel" data-type="module">
+        import React, { useState, useEffect } from 'react';
+        import { createRoot } from 'react-dom/client';
+        import { Phone, MapPin, Clock, Menu, X, ChevronRight, Calendar, Star, Smile, Activity, ShieldCheck, Mail, Facebook, Instagram, Camera } from 'lucide-react';
+
+        // --- DATA & CONFIGURATION ---
+
+        const contactInfo = {
+            phone: "+40 757 866 454",
+            address: "Str. Simion Bărnuțiu nr. 7, Timișoara",
+            mapUrl: "https://maps.google.com/maps?q=Simion+Barnutiu+nr+7+Timisoara&t=&z=15&ie=UTF8&iwloc=&output=embed",
+            email: "contact@brightdentalcare.ro"
+        };
+
+        const priceList = [
+            {
+                category: "Diagnostic și Prevenție",
+                items: [
+                { name: "Consultație primară (include fișă pacient și plan tratament)", price: "250 RON" },
+                { name: "Pachet igienizare complet (Detartraj, Periaj, Air-Flow)", price: "250-350 RON" },
+                { name: "Sigilare dinte (per dinte)", price: "250 RON" },
+                { name: "Fluorizare profesională (per arcadă)", price: "200 RON" }
+                ]
+            },
+            {
+                category: "Terapie Restaurativă (Plombe)",
+                items: [
+                { name: "Obturație compozit - Cavitate mică/superficială", price: "300 RON" },
+                { name: "Obturație compozit - Cavitate medie", price: "350 RON" },
+                { name: "Obturație compozit - Cavitate mare (reconstrucție)", price: "400 RON" },
+                { name: "Reconstrucție dinte cu pivot din fibră de sticlă", price: "350 RON" },
+                { name: "Coafaj direct/indirect", price: "100 RON" }
+                ]
+            },
+            {
+                category: "Endodonție (Tratament Canal)",
+                items: [
+                { name: "Extirpare vitală/Tratament canal monoradicular", price: "600 RON" },
+                { name: "Tratament canal pluriradicular (2-3 canale)", price: "700 RON" },
+                { name: "Retratament endodontic (desigilare + tratament nou)", price: "900 RON" },
+                { name: "Pansament antiseptic/calciu", price: "150 RON" }
+                ]
+            },
+            {
+                category: "Chirurgie și Implantologie",
+                items: [
+                { name: "Extracție dinte monoradicular/mobil", price: "300 RON" },
+                { name: "Extracție molar de minte (erupt)", price: "600 RON" },
+                { name: "Odontectomie (molar minte inclus/semi-inclus)", price: "700 RON" },
+                { name: "Implant dentar (etapa chirurgicală)", price: "2500 RON" },
+                { name: "Sinus Lift", price: "3000 RON" },
+                { name: "All on four (4 implanturi, ghid chirurgical + lucrare provizorie)", price: "2000 EURO", highlight: true },
+                { name: "All on six (6 implanturi, ghid chirurgical + lucrare provizorie)", price: "3000 EURO", highlight: true }
+                ]
+            },
+            {
+                category: "Protetică (Coroane și Fațete)",
+                items: [
+                { name: "Coroană provizorie", price: "300 RON" },
+                { name: "Coroană metalo-ceramică (total fizionomică)", price: "800 RON" },
+                { name: "Coroană Zirconiu (frezat CAD-CAM)", price: "1400 RON" },
+                { name: "Coroană ceramică pe suport de Zirconiu", price: "1400 RON" },
+                { name: "Fațetă ceramică (E-max)", price: "1500 RON" },
+                { name: "Proteză totală/parțială (acrilică)", price: "1600 RON" }
+                ]
+            },
+            {
+                category: "Ortodonție",
+                items: [
+                { name: "Consultație de specialitate ortodonție", price: "250 RON" },
+                { name: "Aparat dentar fix metalic (per arcadă)", price: "3000 RON" },
+                { name: "Aparat dentar fix Safir/Fizionomic (per arcadă)", price: "3900 RON" },
+                { name: "Aparat dentar mobil (copii)", price: "800-1000 RON" }
+                ]
+            },
+            {
+                category: "Pedodonție (Copii)",
+                items: [
+                { name: "Consultație pedodontică (acomodare)", price: "150 RON" },
+                { name: "Obturație dinte temporar (plombă dinte lapte)", price: "200 RON" },
+                { name: "Extracție dinte temporar", price: "200 RON" }
+                ]
+            }
+        ];
+
+        const specialties = [
+            {
+                title: "Implantologie Avansată",
+                description: "Soluții moderne pentru înlocuirea dinților lipsă. De la implanturi unice la reabilitări complexe 'All-on-4' și 'All-on-6'.",
+                icon: <ShieldCheck className="w-12 h-12 text-red-900" />,
+                image: "https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                title: "Estetică Dentară",
+                description: "Zâmbetul perfect prin fațete dentare E-max, coroane de zirconiu și tratamente de albire profesională.",
+                icon: <Star className="w-12 h-12 text-red-900" />,
+                image: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                title: "Ortodonție",
+                description: "Aparate dentare fixe și mobile pentru copii și adulți. Corectarea alinierii dinților pentru o funcționalitate și estetică optimă.",
+                icon: <Smile className="w-12 h-12 text-red-900" />,
+                image: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                title: "Endodonție la Microscop",
+                description: "Tratamente de canal precise pentru salvarea dinților naturali, folosind tehnologie de ultimă generație.",
+                icon: <Activity className="w-12 h-12 text-red-900" />,
+                image: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&q=80&w=800"
+            }
+        ];
+
+        // Atmosphere / Clinic Photos
+        const galleryImages = [
+            { src: "./bdcintrare.jpeg", caption: "Recepție și Intrare" },
+            { src: "./bdchol.jpeg", caption: "Zonă de Așteptare" },
+            { src: "./bdccabinet.jpeg", caption: "Cabinet Stomatologic Modern" },
+        ];
+
+        // Clinical Cases / Transformations
+        const clinicalCases = [
+            { src: "./albiredentara1.jpeg", caption: "Procedură Albire Dentară - În lucru", category: "Albire" },
+            { src: "./albiredentara2.jpeg", caption: "Rezultat Albire Dentară", category: "Albire" },
+            { src: "./bdccaz2.jpeg", caption: "Reabilitare Estetică", category: "Estetică" },
+            { src: "./bdccaz3.jpeg", caption: "Zâmbet Natural", category: "Estetică" },
+            { src: "./bdccaz1.jpeg", caption: "Implantologie - Etapa Chirurgicală", category: "Implantologie" },
+            { src: "./bdccaz4.jpeg", caption: "Caz Complex - Vedere Frontală", category: "Reabilitare" },
+            { src: "./caz5.jpeg", caption: "Verificare Culoare", category: "Protetica" },
+        ];
+
+        // --- COMPONENTS ---
+
+        const Header = ({ setPage, currentPage, isScrolled }) => {
+            const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+            const navLinks = [
+                { id: 'home', label: 'Acasă' },
+                { id: 'specialties', label: 'Specialități' },
+                { id: 'prices', label: 'Tarife' },
+                { id: 'gallery', label: 'Galerie' },
+                { id: 'contact', label: 'Contact' },
+            ];
+
+            return (
+                <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'}`}>
+                <div className="container mx-auto px-4 flex justify-between items-center">
+                    {/* Logo */}
+                    <div 
+                    onClick={() => setPage('home')}
+                    className="cursor-pointer flex items-center gap-2"
+                    >
+                    <div className="bg-red-900 text-white p-2 rounded-lg">
+                        <Activity size={24} />
+                    </div>
+                    <div>
+                        <h1 className={`text-2xl font-bold leading-none ${isScrolled || currentPage !== 'home' ? 'text-gray-900' : 'text-white'}`}>
+                        BRIGHT<span className="text-red-900">DENTAL</span>
+                        </h1>
+                        <p className={`text-xs tracking-widest ${isScrolled || currentPage !== 'home' ? 'text-gray-600' : 'text-gray-200'}`}>CARE</p>
+                    </div>
+                    </div>
+
+                    {/* Desktop Nav */}
+                    <nav className="hidden md:flex items-center gap-8">
+                    {navLinks.map((link) => (
+                        <button
+                        key={link.id}
+                        onClick={() => setPage(link.id)}
+                        className={`text-sm font-medium uppercase tracking-wide transition-colors hover:text-red-700
+                            ${currentPage === link.id ? 'text-red-900 border-b-2 border-red-900' : (isScrolled || currentPage !== 'home' ? 'text-gray-700' : 'text-white')}
+                        `}
+                        >
+                        {link.label}
+                        </button>
+                    ))}
+                    <a 
+                        href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} 
+                        className="bg-red-900 hover:bg-red-800 text-white px-6 py-2 rounded-full font-medium transition-all shadow-lg hover:shadow-red-900/30 flex items-center gap-2"
+                    >
+                        <Phone size={16} />
+                        Programare
+                    </a>
+                    </nav>
+
+                    {/* Mobile Menu Toggle */}
+                    <button 
+                    className={`md:hidden ${isScrolled || currentPage !== 'home' ? 'text-gray-900' : 'text-white'}`}
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    >
+                    {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                    </button>
+                </div>
+
+                {/* Mobile Nav Overlay */}
+                {mobileMenuOpen && (
+                    <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-xl border-t border-gray-100 py-4 px-4 flex flex-col gap-4 animate-in slide-in-from-top-5">
+                    {navLinks.map((link) => (
+                        <button
+                        key={link.id}
+                        onClick={() => {
+                            setPage(link.id);
+                            setMobileMenuOpen(false);
+                        }}
+                        className={`text-left text-lg font-medium py-2 border-b border-gray-100 ${currentPage === link.id ? 'text-red-900' : 'text-gray-800'}`}
+                        >
+                        {link.label}
+                        </button>
+                    ))}
+                    <a 
+                        href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} 
+                        className="bg-red-900 text-white text-center py-3 rounded-lg font-bold mt-2"
+                    >
+                        Sună Acum
+                    </a>
+                    </div>
+                )}
+                </header>
+            );
+        };
+
+        const Footer = ({ setPage }) => (
+            <footer className="bg-gray-900 text-white pt-16 pb-8">
+                <div className="container mx-auto px-4">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                    <div className="col-span-1 md:col-span-1">
+                    <h2 className="text-2xl font-bold mb-4 text-white">BRIGHT<span className="text-red-500">DENTAL</span></h2>
+                    <p className="text-gray-400 mb-6 text-sm leading-relaxed">
+                        Clinica ta de încredere în Timișoara. Oferim servicii stomatologice complete, de la prevenție la reabilitări orale complexe, într-un mediu modern și primitor.
+                    </p>
+                    <div className="flex gap-4">
+                        <a href="#" className="bg-gray-800 p-2 rounded-full hover:bg-red-900 transition-colors"><Facebook size={18} /></a>
+                        <a href="#" className="bg-gray-800 p-2 rounded-full hover:bg-red-900 transition-colors"><Instagram size={18} /></a>
+                    </div>
+                    </div>
+
+                    <div>
+                    <h3 className="text-lg font-bold mb-4 border-b-2 border-red-900 inline-block pb-1">Link-uri Rapide</h3>
+                    <ul className="space-y-2 text-gray-400 text-sm">
+                        <li><button onClick={() => setPage('home')} className="hover:text-red-500 transition-colors">Acasă</button></li>
+                        <li><button onClick={() => setPage('specialties')} className="hover:text-red-500 transition-colors">Specialități</button></li>
+                        <li><button onClick={() => setPage('prices')} className="hover:text-red-500 transition-colors">Lista de Prețuri</button></li>
+                        <li><button onClick={() => setPage('contact')} className="hover:text-red-500 transition-colors">Contact</button></li>
+                    </ul>
+                    </div>
+
+                    <div>
+                    <h3 className="text-lg font-bold mb-4 border-b-2 border-red-900 inline-block pb-1">Program</h3>
+                    <ul className="space-y-2 text-gray-400 text-sm">
+                        <li className="flex justify-between"><span>Luni - Vineri:</span> <span className="text-white">09:00 - 20:00</span></li>
+                        <li className="flex justify-between"><span>Sâmbătă:</span> <span className="text-white">Închis</span></li>
+                        <li className="flex justify-between"><span>Duminică:</span> <span className="text-white">Închis</span></li>
+                    </ul>
+                    </div>
+
+                    <div>
+                    <h3 className="text-lg font-bold mb-4 border-b-2 border-red-900 inline-block pb-1">Contact</h3>
+                    <ul className="space-y-4 text-gray-400 text-sm">
+                        <li className="flex items-start gap-3">
+                        <MapPin className="text-red-500 mt-1 flex-shrink-0" size={18} />
+                        <span>{contactInfo.address}</span>
+                        </li>
+                        <li className="flex items-center gap-3">
+                        <Phone className="text-red-500 flex-shrink-0" size={18} />
+                        <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} className="hover:text-white transition-colors">{contactInfo.phone}</a>
+                        </li>
+                        <li className="flex items-center gap-3">
+                        <Mail className="text-red-500 flex-shrink-0" size={18} />
+                        <span>{contactInfo.email}</span>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+                
+                <div className="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                    <p>&copy; {new Date().getFullYear()} Bright Dental Care. Toate drepturile rezervate.</p>
+                </div>
+                </div>
+            </footer>
+        );
+
+        // --- PAGES ---
+
+        const HomePage = ({ setPage }) => (
+            <div className="animate-in fade-in duration-500">
+                {/* Hero Section */}
+                <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+                {/* Background Image with Overlay */}
+                <div className="absolute inset-0 z-0">
+                    <img 
+                    src="./bdccabinet.jpeg" 
+                    onError={(e) => {e.target.src = "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=1920"}}
+                    alt="Bright Dental Clinic" 
+                    className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/40"></div>
+                </div>
+
+                <div className="relative z-10 container mx-auto px-4 text-white">
+                    <div className="max-w-3xl">
+                    <div className="inline-block bg-red-900 text-white px-3 py-1 text-sm font-bold tracking-widest uppercase mb-4 rounded-sm">
+                        Excelență în stomatologie
+                    </div>
+                    <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
+                        Zâmbetul tău merită <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600">toată atenția.</span>
+                    </h1>
+                    <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl leading-relaxed">
+                        Tehnologie de ultimă generație, medici specialiști și tratamente fără durere, chiar în inima Timișoarei.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <button 
+                        onClick={() => setPage('contact')}
+                        className="bg-red-900 hover:bg-red-800 text-white px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg shadow-red-900/30"
+                        >
+                        Programează-te
+                        </button>
+                        <button 
+                        onClick={() => setPage('prices')}
+                        className="bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 text-white px-8 py-4 rounded-full font-bold text-lg transition-all"
+                        >
+                        Vezi Tarife
+                        </button>
+                    </div>
+                    </div>
+                </div>
+                </section>
+
+                {/* Features Strip */}
+                <section className="bg-white py-16 relative z-20 -mt-10 mx-4 md:mx-0 rounded-t-3xl md:rounded-none shadow-xl md:shadow-none">
+                <div className="container mx-auto px-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                    <div className="p-6 border border-gray-100 rounded-xl hover:shadow-lg transition-shadow">
+                        <div className="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center text-red-900 mb-4 mx-auto md:mx-0">
+                        <ShieldCheck size={28} />
+                        </div>
+                        <h3 className="text-xl font-bold mb-2 text-gray-900">Medici Specialiști</h3>
+                        <p className="text-gray-600">Echipă dedicată cu experiență vastă în implantologie, ortodonție și estetică.</p>
+                    </div>
+                    <div className="p-6 border border-gray-100 rounded-xl hover:shadow-lg transition-shadow">
+                        <div className="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center text-red-900 mb-4 mx-auto md:mx-0">
+                        <Activity size={28} />
+                        </div>
+                        <h3 className="text-xl font-bold mb-2 text-gray-900">Tehnologie Modernă</h3>
+                        <p className="text-gray-600">Echipamente de ultimă generație pentru diagnostic precis și tratamente sigure.</p>
+                    </div>
+                    <div className="p-6 border border-gray-100 rounded-xl hover:shadow-lg transition-shadow">
+                        <div className="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center text-red-900 mb-4 mx-auto md:mx-0">
+                        <Smile size={28} />
+                        </div>
+                        <h3 className="text-xl font-bold mb-2 text-gray-900">Confort Maxim</h3>
+                        <p className="text-gray-600">Atmosferă relaxantă și tehnici avansate pentru tratamente fără durere.</p>
+                    </div>
+                    </div>
+                </div>
+                </section>
+
+                {/* Quick About */}
+                <section className="py-20 bg-gray-50">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-col md:flex-row items-center gap-12">
+                    <div className="md:w-1/2">
+                        <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="./bdcintrare.jpeg" onError={(e) => {e.target.src="https://images.unsplash.com/photo-1588776814546-1ffcf4722e12?auto=format&fit=crop&q=80&w=800"}} alt="Cabinet" className="w-full" />
+                        <div className="absolute -bottom-6 -right-6 bg-red-900 text-white p-8 rounded-xl hidden md:block">
+                            <p className="text-4xl font-bold">10+</p>
+                            <p className="text-sm uppercase tracking-wide">Ani de experiență</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div className="md:w-1/2">
+                        <h4 className="text-red-900 font-bold uppercase tracking-widest mb-2">Despre Noi</h4>
+                        <h2 className="text-4xl font-bold text-gray-900 mb-6">Bine ai venit la Bright Dental Care</h2>
+                        <p className="text-gray-600 mb-6 leading-relaxed">
+                        Suntem o clinică stomatologică modernă în Timișoara, dedicată excelenței în sănătatea orală. Misiunea noastră este să oferim fiecărui pacient un zâmbet sănătos și estetic, printr-o abordare personalizată și empatică.
+                        </p>
+                        <p className="text-gray-600 mb-8 leading-relaxed">
+                        Fie că ai nevoie de un simplu control de rutină sau de o reabilitare complexă prin implanturi dentare, echipa noastră este pregătită să îți ofere cele mai bune soluții.
+                        </p>
+                        <button onClick={() => setPage('specialties')} className="flex items-center gap-2 text-red-900 font-bold hover:gap-4 transition-all">
+                        Vezi serviciile noastre <ChevronRight size={20} />
+                        </button>
+                    </div>
+                    </div>
+                </div>
+                </section>
+            </div>
+        );
+
+        const SpecialtiesPage = () => (
+            <div className="pt-32 pb-20 bg-gray-50 min-h-screen animate-in fade-in duration-500">
+                <div className="container mx-auto px-4">
+                <div className="text-center max-w-2xl mx-auto mb-16">
+                    <h2 className="text-4xl font-bold text-gray-900 mb-4">Specialitățile Noastre</h2>
+                    <div className="w-20 h-1 bg-red-900 mx-auto rounded mb-6"></div>
+                    <p className="text-gray-600">
+                    Acoperim toată gama de tratamente stomatologice pentru a asigura sănătatea completă a zâmbetului tău.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {specialties.map((spec, index) => (
+                    <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow group flex flex-col md:flex-row h-full">
+                        <div className="md:w-2/5 h-64 md:h-auto overflow-hidden">
+                        <img 
+                            src={spec.image} 
+                            alt={spec.title} 
+                            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" 
+                        />
+                        </div>
+                        <div className="p-8 md:w-3/5 flex flex-col justify-center">
+                        <div className="mb-4 bg-red-50 w-fit p-3 rounded-lg group-hover:bg-red-900 group-hover:text-white transition-colors">
+                            {spec.icon}
+                        </div>
+                        <h3 className="text-2xl font-bold text-gray-900 mb-3">{spec.title}</h3>
+                        <p className="text-gray-600 leading-relaxed">{spec.description}</p>
+                        </div>
+                    </div>
+                    ))}
+                </div>
+                </div>
+            </div>
+        );
+
+        const PricesPage = () => (
+            <div className="pt-32 pb-20 bg-white min-h-screen animate-in fade-in duration-500">
+                <div className="container mx-auto px-4">
+                <div className="text-center max-w-3xl mx-auto mb-16">
+                    <h2 className="text-4xl font-bold text-gray-900 mb-4">Listă Tarife</h2>
+                    <div className="w-20 h-1 bg-red-900 mx-auto rounded mb-6"></div>
+                    <p className="text-gray-600">
+                    Transparența este importantă pentru noi. Mai jos regăsiți lista orientativă de prețuri pentru serviciile noastre.
+                    Planul final de tratament se stabilește în urma consultației.
+                    </p>
+                </div>
+
+                <div className="max-w-4xl mx-auto space-y-12">
+                    {priceList.map((category, idx) => (
+                    <div key={idx} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <div className="bg-gray-900 px-6 py-4 flex items-center justify-between">
+                        <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                            <span className="w-2 h-2 bg-red-500 rounded-full inline-block"></span>
+                            {category.category}
+                        </h3>
+                        </div>
+                        <div className="divide-y divide-gray-100">
+                        {category.items.map((item, i) => (
+                            <div 
+                            key={i} 
+                            className={`flex justify-between items-center p-5 hover:bg-gray-50 transition-colors ${item.highlight ? 'bg-red-50 hover:bg-red-100' : ''}`}
+                            >
+                            <span className={`font-medium ${item.highlight ? 'text-red-900 font-bold' : 'text-gray-700'}`}>
+                                {item.name}
+                            </span>
+                            <span className={`whitespace-nowrap font-bold ${item.highlight ? 'text-red-900 text-lg' : 'text-gray-900'}`}>
+                                {item.price}
+                            </span>
+                            </div>
+                        ))}
+                        </div>
+                    </div>
+                    ))}
+                </div>
+
+                <div className="max-w-4xl mx-auto mt-12 bg-red-50 p-6 rounded-xl border border-red-100 text-center text-red-900 text-sm">
+                    <p><strong>Notă:</strong> Prețurile pot suferi modificări în funcție de complexitatea cazului clinic. Lista completă este disponibilă la recepția clinicii.</p>
+                </div>
+                </div>
+            </div>
+        );
+
+        const GalleryPage = () => (
+            <div className="pt-32 pb-20 bg-gray-50 min-h-screen animate-in fade-in duration-500">
+                <div className="container mx-auto px-4">
+                
+                {/* Sectiunea 1: Clinica */}
+                <div className="mb-20">
+                    <div className="text-center mb-12">
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4">Clinica Noastră</h2>
+                        <div className="w-20 h-1 bg-red-900 mx-auto rounded mb-4"></div>
+                        <p className="text-gray-600 max-w-2xl mx-auto">
+                            Un spațiu modern și primitor, dotat cu tehnologie de ultimă generație pentru confortul tău.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {galleryImages.map((img, idx) => (
+                        <div key={idx} className="group relative overflow-hidden rounded-xl shadow-md aspect-[4/3]">
+                            <img 
+                            src={img.src} 
+                            alt={`Bright Dental Care ${idx + 1}`} 
+                            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                                <span className="text-white font-bold text-lg">{img.caption}</span>
+                            </div>
+                        </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Sectiunea 2: Cazuri Clinice */}
+                <div>
+                    <div className="text-center mb-12">
+                        <div className="inline-flex items-center justify-center p-3 bg-red-100 rounded-full text-red-900 mb-4">
+                            <Camera size={24} />
+                        </div>
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4">Transformări & Cazuri Reale</h2>
+                        <div className="w-20 h-1 bg-red-900 mx-auto rounded mb-4"></div>
+                        <p className="text-gray-600 max-w-2xl mx-auto">
+                            Rezultatele vorbesc de la sine. Vezi câteva dintre cazurile tratate cu succes în clinica noastră.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        {clinicalCases.map((img, idx) => (
+                        <div key={idx} className="group relative overflow-hidden rounded-xl shadow-md aspect-square bg-gray-100 cursor-pointer">
+                            <img 
+                            src={img.src} 
+                            alt={`Caz Clinic ${idx + 1}`} 
+                            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                            />
+                            <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-red-900 shadow-sm">
+                                {img.category}
+                            </div>
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center p-4">
+                                <span className="text-white font-medium">{img.caption}</span>
+                            </div>
+                        </div>
+                        ))}
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        );
+
+        const ContactPage = () => (
+            <div className="pt-32 pb-20 bg-white min-h-screen animate-in fade-in duration-500">
+                <div className="container mx-auto px-4">
+                <div className="text-center mb-16">
+                    <h2 className="text-4xl font-bold text-gray-900 mb-4">Contactează-ne</h2>
+                    <div className="w-20 h-1 bg-red-900 mx-auto rounded mb-6"></div>
+                    <p className="text-gray-600">Suntem aici pentru a răspunde întrebărilor tale și pentru a programa vizita ta.</p>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                    {/* Contact Info & Map */}
+                    <div className="space-y-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 text-center">
+                        <Phone className="w-8 h-8 text-red-900 mx-auto mb-3" />
+                        <h4 className="font-bold text-gray-900 mb-2">Telefon</h4>
+                        <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} className="text-gray-600 hover:text-red-900">{contactInfo.phone}</a>
+                        </div>
+                        <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 text-center">
+                        <MapPin className="w-8 h-8 text-red-900 mx-auto mb-3" />
+                        <h4 className="font-bold text-gray-900 mb-2">Adresă</h4>
+                        <p className="text-gray-600 text-sm">{contactInfo.address}</p>
+                        </div>
+                    </div>
+
+                    <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
+                        <h4 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                        <Clock className="text-red-900" size={20} /> Program
+                        </h4>
+                        <div className="space-y-2 text-sm">
+                        <div className="flex justify-between border-b border-gray-200 pb-2">
+                            <span className="text-gray-600">Luni - Vineri</span>
+                            <span className="font-bold text-gray-900">09:00 - 20:00</span>
+                        </div>
+                        <div className="flex justify-between text-gray-400">
+                            <span>Sâmbătă - Duminică</span>
+                            <span>Închis</span>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div className="h-80 w-full rounded-xl overflow-hidden shadow-lg border border-gray-200">
+                        <iframe 
+                        src={contactInfo.mapUrl}
+                        width="100%" 
+                        height="100%" 
+                        style={{border:0}} 
+                        allowFullScreen="" 
+                        loading="lazy" 
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Locatie Bright Dental Care"
+                        ></iframe>
+                    </div>
+                    </div>
+
+                    {/* Form */}
+                    <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-6">Trimite un mesaj</h3>
+                    <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Nume</label>
+                            <input type="text" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-900 focus:border-transparent outline-none transition-all" placeholder="Numele tău" />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Telefon</label>
+                            <input type="tel" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-900 focus:border-transparent outline-none transition-all" placeholder="07xx xxx xxx" />
+                        </div>
+                        </div>
+                        <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-900 focus:border-transparent outline-none transition-all" placeholder="email@exemplu.com" />
+                        </div>
+                        <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Mesaj</label>
+                        <textarea rows="4" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-900 focus:border-transparent outline-none transition-all" placeholder="Cu ce te putem ajuta?"></textarea>
+                        </div>
+                        <button className="w-full bg-red-900 text-white font-bold py-4 rounded-lg hover:bg-red-800 transition-colors shadow-lg shadow-red-900/20">
+                        Trimite Mesajul
+                        </button>
+                    </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+        );
+
+        const App = () => {
+            const [currentPage, setCurrentPage] = useState('home');
+            const [isScrolled, setIsScrolled] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => {
+                setIsScrolled(window.scrollY > 50);
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            useEffect(() => {
+                window.scrollTo(0, 0);
+            }, [currentPage]);
+
+            const renderPage = () => {
+                switch(currentPage) {
+                case 'home': return <HomePage setPage={setCurrentPage} />;
+                case 'specialties': return <SpecialtiesPage />;
+                case 'prices': return <PricesPage />;
+                case 'gallery': return <GalleryPage />;
+                case 'contact': return <ContactPage />;
+                default: return <HomePage setPage={setCurrentPage} />;
+                }
+            };
+
+            return (
+                <div className="font-sans text-gray-800 antialiased selection:bg-red-200 selection:text-red-900">
+                <Header setPage={setCurrentPage} currentPage={currentPage} isScrolled={isScrolled} />
+                
+                <main className="min-h-screen">
+                    {renderPage()}
+                </main>
+                
+                <Footer setPage={setCurrentPage} />
+                
+                {/* Floating Call Button for Mobile */}
+                <a 
+                    href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}
+                    className="fixed bottom-6 right-6 md:hidden bg-red-900 text-white p-4 rounded-full shadow-2xl z-50 animate-bounce"
+                >
+                    <Phone size={24} />
+                </a>
+                </div>
+            );
+        };
+
+        // Renderare finală
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+
+    </script>
+</body>
+</html>
