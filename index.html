@@ -228,17 +228,44 @@
             { src: "./bdccabinet.jpeg", caption: "Cabinet Stomatologic Modern" },
         ];
 
-        // Clinical Cases / Transformations
-        const clinicalCases = [
-            { src: "./albiredentara1.jpeg", caption: "Procedură Albire Dentară", category: "Albire" },
-            { src: "./albiredentara2.jpeg", caption: "Rezultat Albire Dentară", category: "Albire" },
-            { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare1.jpeg", caption: "Spațiere Interdentară", category: "Estetică" },
-            { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare2.jpeg", caption: "Chipsuri Ceramice", category: "Estetică" },
-            { src: "./bdccaz2.jpeg", caption: "Reabilitare Estetică", category: "Protetica" },
-            { src: "./bdccaz3.jpeg", caption: "Zâmbet Natural", category: "Protetica" },
-            { src: "./bdccaz1.jpeg", caption: "Implantologie", category: "Implantologie" },
-            { src: "./bdccaz4.jpeg", caption: "Caz Complex", category: "Reabilitare" },
-            { src: "./caz5.jpeg", caption: "Verificare Culoare", category: "Protetica" }
+        // Clinical Cases / Transformations (Before & After Grouped)
+        const beforeAfterCases = [
+            {
+                title: "Albire Dentară",
+                category: "Estetică",
+                before: { src: "./albiredentara1.jpeg" },
+                after: { src: "./albiredentara2.jpeg" }
+            },
+            {
+                title: "Închidere Spații (Chipsuri)",
+                category: "Estetică",
+                before: { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare1.jpeg" },
+                after: { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare2.jpeg" }
+            },
+            {
+                title: "Reabilitare Estetică",
+                category: "Protetica",
+                before: { src: "./bdccaz6before.jpg" },
+                after: { src: "./bdccazafter.jpg" }
+            },
+            {
+                title: "Implantologie",
+                category: "Implantologie",
+                before: { src: "./bdccaz1.jpeg" },
+                after: { src: "./bdccaz4.jpeg" }
+            },
+            {
+                title: "Coroane Dentare",
+                category: "Protetica",
+                before: { src: "./caz5.jpeg" },
+                after: { src: "./bdccaz5after.jpg" }
+            },
+            {
+                title: "Zâmbet Natural",
+                category: "Estetică",
+                before: { src: "./bdccaz2.jpeg" },
+                after: { src: "./bdccaz3.jpeg" }
+            }
         ];
 
         // --- COMPONENTS ---
