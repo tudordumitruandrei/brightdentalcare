@@ -68,11 +68,6 @@
         /* Hide scrollbar */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Clasă utilitară pentru rotirea imaginilor orizontale la verticală menținând acoperirea containerului */
-        .rotate-image-vertical {
-            transform: rotate(90deg) scale(1.35);
-        }
     </style>
 </head>
 <body class="bg-white text-gray-800 antialiased selection:bg-primary-200 selection:text-primary-900">
@@ -84,7 +79,7 @@
     <script type="text/babel" data-type="module">
         import React, { useState, useEffect } from 'react';
         import { createRoot } from 'react-dom/client';
-        import { Phone, MapPin, Clock, Menu, X, ChevronRight, Calendar, Star, Smile, Activity, ShieldCheck, Mail, Facebook, Instagram, Camera, ArrowRight } from 'lucide-react';
+        import { Phone, MapPin, Clock, Menu, X, ChevronRight, Calendar, Star, Smile, Activity, ShieldCheck, Mail, Facebook, Instagram, Camera, ArrowRight, CheckCircle, Search, Heart, PenTool } from 'lucide-react';
 
         // --- CUSTOM ICONS ---
         const WhatsAppIcon = ({ size = 24, className = "" }) => (
@@ -176,28 +171,53 @@
 
         const specialties = [
             {
-                title: "Implantologie Avansată",
-                description: "Soluții moderne pentru înlocuirea dinților lipsă. De la implanturi unice la reabilitări complexe 'All-on-4' și 'All-on-6'.",
-                icon: <ShieldCheck className="w-12 h-12 text-primary-900" />,
+                title: "Diagnostic și Prevenție",
+                description: "Baza unui zâmbet sănătos începe cu prevenția. Oferim evaluări complete și igienizări profesionale pentru a preveni afecțiunile dentare.",
+                services: ["Consultație primară și plan tratament", "Pachet igienizare complet", "Sigilare dinte", "Fluorizare profesională"],
+                icon: <Search className="w-10 h-10 text-primary-900" />,
+                image: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                title: "Terapie Restaurativă (Plombe)",
+                description: "Tratăm cariile și redăm funcționalitatea dinților tăi cu materiale compozite de înaltă calitate, adaptate estetic.",
+                services: ["Obturații compozit", "Reconstrucție cu pivot", "Coafaj direct/indirect"],
+                icon: <PenTool className="w-10 h-10 text-primary-900" />,
+                image: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                title: "Endodonție (Tratament Canal)",
+                description: "Tratamente de canal precise și sigure, menite să salveze dinții naturali afectați de infecții profunde.",
+                services: ["Extirpare vitală", "Tratament canal pluriradicular", "Retratament endodontic", "Pansament antiseptic"],
+                icon: <Activity className="w-10 h-10 text-primary-900" />,
+                image: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                title: "Chirurgie și Implantologie",
+                description: "Soluții moderne pentru înlocuirea dinților lipsă și extracții realizate în maxim confort și siguranță.",
+                services: ["Extracții dentare și molari minte", "Implant dentar și Sinus Lift", "Sisteme All on 4 / All on 6"],
+                icon: <ShieldCheck className="w-10 h-10 text-primary-900" />,
                 image: "https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?auto=format&fit=crop&q=80&w=800"
             },
             {
-                title: "Estetică Dentară",
-                description: "Zâmbetul perfect prin fațete dentare E-max, coroane de zirconiu și tratamente de albire profesională.",
-                icon: <Star className="w-12 h-12 text-primary-900" />,
+                title: "Protetică (Coroane și Fațete)",
+                description: "Zâmbetul perfect obținut cu ajutorul lucrărilor protetice de înaltă precizie și o estetică deosebită.",
+                services: ["Coroane metalo-ceramice și Zirconiu", "Fațete ceramice E-max", "Proteze totale/parțiale"],
+                icon: <Star className="w-10 h-10 text-primary-900" />,
                 image: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&q=80&w=800"
             },
             {
                 title: "Ortodonție",
-                description: "Aparate dentare fixe și mobile pentru copii și adulți. Corectarea alinierii dinților pentru o funcționalitate și estetică optimă.",
-                icon: <Smile className="w-12 h-12 text-primary-900" />,
+                description: "Corectarea alinierii dinților pentru o funcționalitate optimă, o curățare mai ușoară și o estetică de invidiat.",
+                services: ["Consultație ortodonție", "Aparat fix metalic și Safir", "Aparat mobil (copii)"],
+                icon: <Smile className="w-10 h-10 text-primary-900" />,
                 image: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&q=80&w=800"
             },
             {
-                title: "Endodonție la Microscop",
-                description: "Tratamente de canal precise pentru salvarea dinților naturali, folosind tehnologie de ultimă generație.",
-                icon: <Activity className="w-12 h-12 text-primary-900" />,
-                image: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&q=80&w=800"
+                title: "Pedodonție (Copii)",
+                description: "Abordare blândă și tratamente fără stres pentru cei mici, asigurând o dantură sănătoasă de la primii pași.",
+                services: ["Consultație acomodare", "Obturație dinte temporar", "Extracție dinte temporar"],
+                icon: <Heart className="w-10 h-10 text-primary-900" />,
+                image: "https://images.unsplash.com/photo-1588776814546-1ffcf4722e12?auto=format&fit=crop&q=80&w=800"
             }
         ];
 
@@ -213,26 +233,26 @@
             {
                 title: "Albire Dentară",
                 category: "Estetică",
-                before: { src: "./albiredentara1.jpeg", rotate: true }, // Marcăm pozele care necesită rotire (cele orizontale)
-                after: { src: "./albiredentara2.jpeg", rotate: true }
+                before: { src: "./albiredentara1.jpeg" },
+                after: { src: "./albiredentara2.jpeg" }
             },
             {
                 title: "Închidere Spații (Chipsuri Ceramice)",
                 category: "Estetică",
-                before: { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare1.jpeg", rotate: true },
-                after: { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare2.jpeg", rotate: true }
+                before: { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare1.jpeg" },
+                after: { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare2.jpeg" }
             },
             {
                 title: "Reabilitare Estetică Completă",
                 category: "Protetica",
-                before: { src: "./bdccaz2.jpeg", rotate: true },
-                after: { src: "./bdccaz3.jpeg", rotate: true }
+                before: { src: "./bdccaz2.jpeg" },
+                after: { src: "./bdccaz3.jpeg" }
             },
             {
                 title: "Implantologie și Reabilitare",
                 category: "Implantologie",
-                before: { src: "./bdccaz1.jpeg", rotate: false }, // Aceasta pare a fi deja pe verticală sau proporționată ok
-                after: { src: "./bdccaz4.jpeg", rotate: true }
+                before: { src: "./bdccaz1.jpeg" },
+                after: { src: "./bdccaz4.jpeg" }
             }
         ];
 
@@ -417,27 +437,27 @@
                         {data.category}
                     </span>
                 </div>
-                <div className="grid grid-cols-2 gap-0.5 bg-gray-200">
+                <div className="flex flex-col gap-1 bg-gray-200">
                     {/* Poza Înainte */}
-                    <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
+                    <div className="relative w-full aspect-[4/3] md:aspect-video overflow-hidden bg-gray-100">
                         <div className="absolute top-3 left-3 z-10 bg-black/60 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md shadow-lg border border-white/20">
                             Înainte
                         </div>
                         <img 
                             src={data.before.src} 
                             alt="Înainte" 
-                            className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 ${data.before.rotate ? 'rotate-image-vertical' : ''}`} 
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                         />
                     </div>
                     {/* Poza După */}
-                    <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
+                    <div className="relative w-full aspect-[4/3] md:aspect-video overflow-hidden bg-gray-100">
                         <div className="absolute top-3 right-3 z-10 bg-primary-900 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg shadow-primary-900/40 border border-primary-400/30">
                             După
                         </div>
                         <img 
                             src={data.after.src} 
                             alt="După" 
-                            className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 ${data.after.rotate ? 'rotate-image-vertical' : ''}`} 
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                         />
                     </div>
                 </div>
@@ -535,13 +555,14 @@
                             {/* Left Content */}
                             <div className="text-white">
                                 <div className="inline-flex items-center gap-2 bg-primary-900/80 backdrop-blur-sm border border-primary-500/30 text-white px-4 py-2 text-xs font-bold tracking-widest uppercase mb-8 rounded-full">
-                                    <Star size={14} className="text-primary-200" /> Excelență în stomatologie
+                                    <MapPin size={14} className="text-primary-200" /> Clinica Dentară Timișoara
                                 </div>
-                                <h1 className="text-5xl md:text-7xl font-heading font-bold leading-tight mb-6">
+                                <h1 className="text-4xl md:text-6xl font-heading font-bold leading-tight mb-6">
                                     Zâmbetul tău merită <br />
-                                    <span className="font-cursive text-6xl md:text-8xl text-transparent bg-clip-text bg-gradient-to-r from-primary-300 to-primary-100 font-normal py-2 block">
-                                        toată atenția.
+                                    <span className="font-cursive text-5xl md:text-7xl text-transparent bg-clip-text bg-gradient-to-r from-primary-300 to-primary-100 font-normal py-2 block">
+                                        cea mai bună îngrijire
                                     </span>
+                                    și toată atenția noastră.
                                 </h1>
                                 <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-xl font-light leading-relaxed">
                                     Tehnologie de ultimă generație, medici specialiști și tratamente fără durere, într-un mediu elegant chiar în inima Timișoarei.
@@ -670,12 +691,20 @@
                                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" 
                             />
                         </div>
-                        <div className="p-10 xl:w-3/5 flex flex-col justify-center bg-white">
-                        <div className="mb-6 bg-primary-50 w-16 h-16 flex items-center justify-center rounded-2xl group-hover:bg-primary-900 group-hover:text-white transition-colors duration-500 shadow-sm">
-                            {spec.icon}
-                        </div>
-                        <h3 className="text-3xl font-heading font-bold text-gray-900 mb-4">{spec.title}</h3>
-                        <p className="text-gray-500 font-light leading-relaxed">{spec.description}</p>
+                        <div className="p-8 xl:w-3/5 flex flex-col justify-center bg-white">
+                            <div className="mb-4 bg-primary-50 w-14 h-14 flex items-center justify-center rounded-2xl group-hover:bg-primary-900 group-hover:text-white transition-colors duration-500 shadow-sm">
+                                {spec.icon}
+                            </div>
+                            <h3 className="text-2xl font-heading font-bold text-gray-900 mb-3">{spec.title}</h3>
+                            <p className="text-gray-500 font-light leading-relaxed mb-6 text-sm">{spec.description}</p>
+                            <ul className="space-y-3 mt-auto">
+                                {spec.services.map((srv, i) => (
+                                    <li key={i} className="flex items-start gap-3 text-gray-700">
+                                        <CheckCircle className="text-primary-500 w-5 h-5 flex-shrink-0" />
+                                        <span className="text-sm font-medium">{srv}</span>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                     ))}
