@@ -228,32 +228,17 @@
             { src: "./bdccabinet.jpeg", caption: "Cabinet Stomatologic Modern" },
         ];
 
-        // Clinical Cases / Transformations (Before & After Grouped)
-        const beforeAfterCases = [
-            {
-                title: "Albire Dentară",
-                category: "Estetică",
-                before: { src: "./albiredentara1.jpeg" },
-                after: { src: "./albiredentara2.jpeg" }
-            },
-            {
-                title: "Închidere Spații (Chipsuri Ceramice)",
-                category: "Estetică",
-                before: { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare1.jpeg" },
-                after: { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare2.jpeg" }
-            },
-            {
-                title: "Reabilitare Estetică Completă",
-                category: "Protetica",
-                before: { src: "./bdccaz2.jpeg" },
-                after: { src: "./bdccaz3.jpeg" }
-            },
-            {
-                title: "Implantologie și Reabilitare",
-                category: "Implantologie",
-                before: { src: "./bdccaz1.jpeg" },
-                after: { src: "./bdccaz4.jpeg" }
-            }
+        // Clinical Cases / Transformations
+        const clinicalCases = [
+            { src: "./albiredentara1.jpeg", caption: "Procedură Albire Dentară", category: "Albire" },
+            { src: "./albiredentara2.jpeg", caption: "Rezultat Albire Dentară", category: "Albire" },
+            { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare1.jpeg", caption: "Spațiere Interdentară", category: "Estetică" },
+            { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare2.jpeg", caption: "Chipsuri Ceramice", category: "Estetică" },
+            { src: "./bdccaz2.jpeg", caption: "Reabilitare Estetică", category: "Protetica" },
+            { src: "./bdccaz3.jpeg", caption: "Zâmbet Natural", category: "Protetica" },
+            { src: "./bdccaz1.jpeg", caption: "Implantologie", category: "Implantologie" },
+            { src: "./bdccaz4.jpeg", caption: "Caz Complex", category: "Reabilitare" },
+            { src: "./caz5.jpeg", caption: "Verificare Culoare", category: "Protetica" }
         ];
 
         // --- COMPONENTS ---
@@ -429,41 +414,6 @@
             </div>
         );
 
-        const BeforeAfterCard = ({ data }) => (
-            <div className="bg-white rounded-3xl overflow-hidden shadow-lg border border-primary-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group">
-                <div className="p-5 bg-gradient-to-r from-primary-50 to-white border-b border-primary-100 flex justify-between items-center">
-                    <h3 className="font-heading font-bold text-primary-900 text-lg md:text-xl">{data.title}</h3>
-                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-primary-600 bg-white px-3 py-1.5 rounded-full shadow-sm border border-primary-100">
-                        {data.category}
-                    </span>
-                </div>
-                <div className="flex flex-col gap-1 bg-gray-200">
-                    {/* Poza Înainte */}
-                    <div className="relative w-full overflow-hidden bg-gray-100">
-                        <div className="absolute top-3 left-3 z-10 bg-black/60 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md shadow-lg border border-white/20">
-                            Înainte
-                        </div>
-                        <img 
-                            src={data.before.src} 
-                            alt="Înainte" 
-                            className="w-full h-auto block transition-transform duration-700 group-hover:scale-105" 
-                        />
-                    </div>
-                    {/* Poza După */}
-                    <div className="relative w-full overflow-hidden bg-gray-100">
-                        <div className="absolute top-3 right-3 z-10 bg-primary-900 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg shadow-primary-900/40 border border-primary-400/30">
-                            După
-                        </div>
-                        <img 
-                            src={data.after.src} 
-                            alt="După" 
-                            className="w-full h-auto block transition-transform duration-700 group-hover:scale-105" 
-                        />
-                    </div>
-                </div>
-            </div>
-        );
-
         const Footer = ({ setPage }) => (
             <footer className="bg-gray-900 text-white pt-20 pb-10">
                 <div className="container mx-auto px-4">
@@ -558,7 +508,7 @@
                                     <MapPin size={14} className="text-primary-200" /> Clinica Dentară Timișoara
                                 </div>
                                 <h1 className="text-4xl md:text-6xl font-heading font-bold leading-tight mb-6">
-                                    Zâmbetul tău merită <span className="font-cursive text-5xl md:text-7xl text-white font-normal">toată atenția!</span>
+                                    Zâmbetul tău merită <span className="font-cursive text-5xl md:text-7xl text-white font-normal">toată atenția noastră.</span>
                                 </h1>
                                 <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-xl font-light leading-relaxed">
                                     Tehnologie de ultimă generație, medici specialiști și tratamente fără durere, într-un mediu elegant chiar în inima Timișoarei.
@@ -583,7 +533,7 @@
                             <div className="hidden md:block relative">
                                 <div className="relative z-10 animate-float">
                                     <img 
-                                        src="./smilepicturecanva.png" 
+                                        src="./kamal-hoseinianzade-KzmhiJJ041M-unsplash.jpg" 
                                         alt="Zâmbet perfect" 
                                         className="rounded-[3rem] shadow-2xl border-8 border-white/10 w-full max-w-md mx-auto"
                                     />
@@ -761,7 +711,7 @@
             <div className="pt-32 pb-24 bg-gray-50 min-h-screen animate-in fade-in duration-500">
                 <div className="container mx-auto px-4 max-w-7xl">
                 
-                {/* Sectiunea 1: Cazuri Clinice Before/After */}
+                {/* Sectiunea 1: Cazuri Clinice */}
                 <div className="mb-32">
                     <div className="text-center mb-16">
                         <div className="inline-flex items-center justify-center p-4 bg-primary-100 rounded-full text-primary-900 mb-6 shadow-sm">
@@ -771,13 +721,25 @@
                         <h2 className="text-5xl font-heading font-bold text-gray-900 mb-6">Transformări & Zâmbete</h2>
                         <div className="w-24 h-1 bg-primary-900 mx-auto rounded-full mb-6"></div>
                         <p className="text-gray-600 text-lg font-light max-w-3xl mx-auto">
-                            Arta noastră, reflectată în zâmbetele pacienților noștri. Compară rezultatele „Înainte” și „După” ale tratamentelor efectuate în clinica Bright Dental.
+                            Arta noastră, reflectată în zâmbetele pacienților noștri. Explorează rezultatele tratamentelor efectuate în clinica Bright Dental.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                        {beforeAfterCases.map((data, idx) => (
-                            <BeforeAfterCard key={idx} data={data} />
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {clinicalCases.map((img, idx) => (
+                        <div key={idx} className="group relative overflow-hidden rounded-3xl shadow-lg border border-primary-50 aspect-[3/4] bg-gray-100 cursor-pointer">
+                            <img 
+                            src={img.src} 
+                            alt={`Caz Clinic ${idx + 1}`} 
+                            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                            />
+                            <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest text-primary-900 shadow-sm">
+                                {img.category}
+                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-primary-900/90 via-primary-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                                <span className="text-white font-heading font-bold text-lg leading-tight">{img.caption}</span>
+                            </div>
+                        </div>
                         ))}
                     </div>
                 </div>
