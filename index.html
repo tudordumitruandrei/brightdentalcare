@@ -169,48 +169,55 @@
             }
         ];
 
-         const specialties = [
+        const specialties = [
             {
                 title: "Diagnostic și Prevenție",
-                description: "Sănătatea dentară pe termen lung se bazează pe o fundație solidă. Evaluările noastre clinice detaliate ne permit să identificăm timpuriu orice afecțiune, preîntâmpinând complicațiile. Un program corect de profilaxie include igienizări profesionale periodice, detartraj, fluorizare și instruirea pacientului pentru menținerea unei igiene orale optime acasă.",
+                description: "Baza unui zâmbet sănătos începe cu prevenția. Oferim evaluări complete și igienizări profesionale pentru a preveni afecțiunile dentare.",
                 services: ["Consultație primară și plan tratament", "Pachet igienizare complet", "Sigilare dinte", "Fluorizare profesională"],
-                icon: <ToothGeneralIcon className="text-primary-900" />,
+                icon: <Search className="w-10 h-10 text-primary-900" />,
+                image: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800"
             },
             {
-                title: "Terapie Restaurativă",
-                description: "Redarea funcționalității și esteticii dintelui afectat de carie se realizează prin intervenții atente și conservatoare. Folosim materiale compozite moderne care se adaptează perfect cromaticii naturale a dinților. Obiectivul nostru este să conservăm cât mai mult din structura dentară sănătoasă, reconstruind morfologia dintelui pentru o masticație corectă.",
-                services: ["Obturații compozit fizionomice", "Reconstrucție cu pivot din fibră", "Coafaj direct și indirect"],
-                icon: <ToothGeneralIcon className="text-primary-900" />,
+                title: "Terapie Restaurativă (Plombe)",
+                description: "Tratăm cariile și redăm funcționalitatea dinților tăi cu materiale compozite de înaltă calitate, adaptate estetic.",
+                services: ["Obturații compozit", "Reconstrucție cu pivot", "Coafaj direct/indirect"],
+                icon: <PenTool className="w-10 h-10 text-primary-900" />,
+                image: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&q=80&w=800"
             },
             {
                 title: "Endodonție (Tratament Canal)",
-                description: "Tratamentul endodontic are rolul de a salva un dinte profund afectat de infecții sau traumatisme, evitând extracția acestuia. Procedura presupune curățarea, dezinfectarea și sigilarea canalelor radiculare cu o precizie riguroasă. Un tratament de canal corect executat prelungește considerabil durata de viață a dintelui natural pe arcadă.",
-                services: ["Extirpare vitală și tratament", "Tratament pluriradicular complex", "Retratament endodontic", "Pansament antiseptic"],
-                icon: <ToothRootIcon className="text-primary-900" />,
+                description: "Tratamente de canal precise și sigure, menite să salveze dinții naturali afectați de infecții profunde.",
+                services: ["Extirpare vitală", "Tratament canal pluriradicular", "Retratament endodontic", "Pansament antiseptic"],
+                icon: <Activity className="w-10 h-10 text-primary-900" />,
+                image: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&q=80&w=800"
             },
             {
                 title: "Chirurgie și Implantologie",
-                description: "Abordăm cazurile complexe cu o planificare atentă, de la extracții necesare până la reabilitări orale extinse prin implanturi dentare. Implantul reprezintă soluția optimă pentru înlocuirea dinților absenți, restabilind atât funcția masticatorie, cât și fizionomia. Fiecare intervenție este pregătită minuțios, având la bază investigații radiologice detaliate.",
-                services: ["Extracții dentare complexe", "Implant dentar și Sinus Lift", "Sisteme integrate All on 4 / All on 6"],
-                icon: <ImplantIcon className="text-primary-900" />,
+                description: "Soluții moderne pentru înlocuirea dinților lipsă și extracții realizate în maxim confort și siguranță.",
+                services: ["Extracții dentare și molari minte", "Implant dentar și Sinus Lift", "Sisteme All on 4 / All on 6"],
+                icon: <ShieldCheck className="w-10 h-10 text-primary-900" />,
+                image: "https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?auto=format&fit=crop&q=80&w=800"
             },
             {
-                title: "Protetică și Estetică",
-                description: "Reconstrucția zâmbetului îmbină rigoarea funcțională cu rafinamentul estetic. Lucrările protetice – fie că vorbim despre coroane ceramice sau din zirconiu, fie despre fațete dentare – sunt personalizate pentru fizionomia fiecărui pacient. Adaptarea marginală precisă și biocompatibilitatea materialelor asigură integrarea perfectă a lucrării în armonia feței.",
-                services: ["Coroane metalo-ceramice și Zirconiu", "Fațete ceramice E-max", "Proteze totale și parțiale acrilice"],
-                icon: <ToothSparkleIcon className="text-primary-900" />,
+                title: "Protetică (Coroane și Fațete)",
+                description: "Zâmbetul perfect obținut cu ajutorul lucrărilor protetice de înaltă precizie și o estetică deosebită.",
+                services: ["Coroane metalo-ceramice și Zirconiu", "Fațete ceramice E-max", "Proteze totale/parțiale"],
+                icon: <Star className="w-10 h-10 text-primary-900" />,
+                image: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&q=80&w=800"
             },
             {
                 title: "Ortodonție",
-                description: "Alinierea corectă a dinților depășește sfera esteticii, fiind esențială pentru o ocluzie (mușcătură) stabilă și o igienizare eficientă. Tratamentele ortodontice corectează anomaliile dento-maxilare, redistribuind forțele masticatorii și prevenind uzura prematură a dinților. Planul de tratament este structurat și adaptat vârstei și nevoilor specifice.",
-                services: ["Consultație și analiză ortodontică", "Aparat fix metalic sau de Safir", "Aparate mobile interceptive pentru copii"],
-                icon: <BracesIcon className="text-primary-900" />,
+                description: "Corectarea alinierii dinților pentru o funcționalitate optimă, o curățare mai ușoară și o estetică de invidiat.",
+                services: ["Consultație ortodonție", "Aparat fix metalic și Safir", "Aparat mobil (copii)"],
+                icon: <Smile className="w-10 h-10 text-primary-900" />,
+                image: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&q=80&w=800"
             },
             {
                 title: "Pedodonție (Copii)",
-                description: "Prima interacțiune a copilului cu medicul stomatolog setează tonul pentru întreaga viață. Ne concentrăm pe crearea unui mediu prietenos, calm, explicând fiecare pas pe înțelesul celor mici. Tratamentele vizează menținerea sănătății dentiției temporare (dinții de lapte) și pun un accent puternic pe educarea copiilor în spiritul unei rutine corecte.",
-                services: ["Consultație de acomodare", "Obturații dinți temporari", "Extracții ghidate dinți de lapte"],
-                icon: <ToothChildIcon className="text-primary-900" />,
+                description: "Abordare blândă și tratamente fără stres pentru cei mici, asigurând o dantură sănătoasă de la primii pași.",
+                services: ["Consultație acomodare", "Obturație dinte temporar", "Extracție dinte temporar"],
+                icon: <Heart className="w-10 h-10 text-primary-900" />,
+                image: "https://images.unsplash.com/photo-1588776814546-1ffcf4722e12?auto=format&fit=crop&q=80&w=800"
             }
         ];
 
@@ -705,68 +712,50 @@ const BeforeAfterCard = ({ data }) => {
     </div>
 );
         const SpecialtiesPage = () => (
-            <div className="pt-32 pb-24 bg-white min-h-screen animate-in fade-in duration-500">
+            <div className="pt-32 pb-24 bg-gray-50 min-h-screen animate-in fade-in duration-500">
                 <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="text-center max-w-3xl mx-auto mb-20">
-                        <span className="font-cursive text-primary-500 text-3xl md:text-4xl block mb-2">Tratamente Personalizate</span>
-                        <h2 className="text-5xl font-heading font-bold text-gray-900 mb-6">Specialitățile Noastre</h2>
-                        <div className="w-24 h-1 bg-primary-900 mx-auto rounded-full mb-6"></div>
-                        <p className="text-gray-600 text-lg font-light">
-                            Pasiunea pentru excelență definește abordarea fiecărui caz. Descoperă expertiza noastră structurată pe arii clare de intervenție.
-                        </p>
-                    </div>
+                <div className="text-center max-w-3xl mx-auto mb-20">
+                    <span className="font-cursive text-primary-500 text-3xl md:text-4xl block mb-2">Servicii Premium</span>
+                    <h2 className="text-5xl font-heading font-bold text-gray-900 mb-6">Specialitățile Noastre</h2>
+                    <div className="w-24 h-1 bg-primary-900 mx-auto rounded-full mb-6"></div>
+                    <p className="text-gray-600 text-lg font-light">
+                    Acoperim tratamente stomatologice multiple, folosind tehnici și materiale premium, pentru a asigura sănătatea și estetica zâmbetului tău.
+                    </p>
+                </div>
 
-                    <div className="flex flex-col">
-                        {specialties.map((spec, index) => {
-                            const isEven = index % 2 === 0;
-                            return (
-                                <div key={index} className={`flex flex-col lg:flex-row gap-12 items-center mb-28 group ${isEven ? '' : 'lg:flex-row-reverse'}`}>
-                                    {/* Text Content */}
-                                    <div className="w-full lg:w-1/2 space-y-6">
-                                        <div className="inline-flex items-center justify-center p-5 bg-primary-50 rounded-3xl mb-2 group-hover:bg-primary-100 transition-colors shadow-sm">
-                                            {spec.icon}
-                                        </div>
-                                        <h3 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 tracking-tight">{spec.title}</h3>
-                                        <p className="text-gray-600 font-light leading-relaxed text-[17px]">
-                                            {spec.description}
-                                        </p>
-                                        <div className="pt-6 border-t border-gray-100">
-                                            <h4 className="text-sm font-bold text-primary-900 uppercase tracking-widest mb-5">Proceduri Incluse</h4>
-                                            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                {spec.services.map((srv, i) => (
-                                                    <li key={i} className="flex items-start gap-3 text-gray-700">
-                                                        <div className="mt-1 bg-primary-100 p-1 rounded-full flex-shrink-0">
-                                                            <CheckCircle className="text-primary-600 w-4 h-4" />
-                                                        </div>
-                                                        <span className="font-medium text-[15px]">{srv}</span>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    {/* Placeholder Image Area */}
-                                    <div className="w-full lg:w-1/2 h-[400px] lg:h-[480px] bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400 hover:bg-gray-100 hover:border-primary-300 hover:text-primary-900 transition-all duration-300 relative overflow-hidden group-hover:shadow-lg cursor-pointer">
-                                        {/* decorative background element */}
-                                        <div className="absolute inset-0 bg-primary-900/[0.02] opacity-0 hover:opacity-100 transition-opacity"></div>
-                                        
-                                        <div className="bg-white p-6 rounded-full shadow-sm mb-6 z-10">
-                                            <ImageIcon size={40} className="opacity-70" />
-                                        </div>
-                                        <div className="text-center z-10 px-8">
-                                            <span className="font-heading font-bold text-xl block mb-2 text-gray-700">Placeholder Poză</span>
-                                            <span className="text-primary-600 font-medium text-lg">{spec.title}</span>
-                                            <p className="text-sm mt-4 font-light text-gray-500 uppercase tracking-wider">Aici vei insera o imagine</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    {specialties.map((spec, index) => (
+                    <div key={index} className="bg-white rounded-3xl overflow-hidden shadow-lg border border-primary-50 hover:shadow-2xl transition-all duration-500 group flex flex-col xl:flex-row h-full">
+                        <div className="xl:w-2/5 h-64 xl:h-auto overflow-hidden relative">
+                            <div className="absolute inset-0 bg-primary-900/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <img 
+                                src={spec.image} 
+                                alt={spec.title} 
+                                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" 
+                            />
+                        </div>
+                        <div className="p-8 xl:w-3/5 flex flex-col justify-center bg-white">
+                            <div className="mb-4 bg-primary-50 w-14 h-14 flex items-center justify-center rounded-2xl group-hover:bg-primary-900 group-hover:text-white transition-colors duration-500 shadow-sm">
+                                {spec.icon}
+                            </div>
+                            <h3 className="text-2xl font-heading font-bold text-gray-900 mb-3">{spec.title}</h3>
+                            <p className="text-gray-500 font-light leading-relaxed mb-6 text-sm">{spec.description}</p>
+                            <ul className="space-y-3 mt-auto">
+                                {spec.services.map((srv, i) => (
+                                    <li key={i} className="flex items-start gap-3 text-gray-700">
+                                        <CheckCircle className="text-primary-500 w-5 h-5 flex-shrink-0" />
+                                        <span className="text-sm font-medium">{srv}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
+                    ))}
+                </div>
                 </div>
             </div>
         );
-        
+
         const PricesPage = () => (
             <div className="pt-32 pb-24 bg-white min-h-screen animate-in fade-in duration-500">
                 <div className="container mx-auto px-4 max-w-5xl">
