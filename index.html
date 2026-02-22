@@ -234,34 +234,34 @@ const beforeAfterCases = [
   {
     title: "Albire Dentară",
     category: "Estetică",
-    // keep "Înainte" as it is now (rotated)
-    before: { src: "./albiredentara1.jpeg", rotate: 90, zoom: 1.15, pos: "center" },
-    // bring "După" back (no rotation), keep slight zoom for framing
+    // too cropped on sides => zoom OUT a bit
+    before: { src: "./albiredentara1.jpeg", rotate: 90, zoom: 1.05, pos: "center" },
     after: { src: "./albiredentara2.jpeg", rotate: 0, zoom: 1.1, pos: "center" },
   },
   {
     title: "Închidere Spații (Chipsuri)",
     category: "Estetică",
-    // zoom was too much => reduce so "Înainte" is visible
+    // "Înainte" not visible => zoom OUT + move DOWN a bit
     before: {
       src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare1.jpeg",
       rotate: 0,
-      zoom: 1.1,
+      zoom: 1.02,
       pos: "center",
+      y: 12, // pushes image down inside the frame
     },
     after: {
       src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare2.jpeg",
       rotate: 0,
-      zoom: 1.12,
+      zoom: 1.08,
       pos: "center",
     },
   },
   {
     title: "Reabilitare Estetică",
     category: "Protetica",
-    // zoomed too much => zoom out a bit
-    before: { src: "./bdccaz6before.png", rotate: 0, zoom: 1.12, pos: "center" },
-    after: { src: "./bdccazafter.png", rotate: 0, zoom: 1.12, pos: "center" },
+    // zoom OUT more on both
+    before: { src: "./bdccaz6before.png", rotate: 0, zoom: 1.05, pos: "center" },
+    after: { src: "./bdccazafter.png", rotate: 0, zoom: 1.05, pos: "center" },
   },
   {
     title: "Implantologie",
@@ -272,8 +272,8 @@ const beforeAfterCases = [
   {
     title: "Coroane Dentare",
     category: "Protetica",
-    // was upside down => rotate the other way so it looks correct
-    before: { src: "./caz5.jpeg", rotate: 90, zoom: 1.28, pos: "center" },
+    // too cropped on sides => zoom OUT a bit
+    before: { src: "./caz5.jpeg", rotate: 90, zoom: 1.12, pos: "center" },
     after: { src: "./bdccaz5after.png", rotate: 0, zoom: 1, pos: "top" },
   },
   {
