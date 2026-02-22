@@ -64,7 +64,7 @@
     <script type="text/babel" data-type="module">
         import React, { useState, useEffect } from 'react';
         import { createRoot } from 'react-dom/client';
-        import { Phone, MapPin, Clock, Menu, X, ChevronRight, Calendar, Star, Smile, Activity, ShieldCheck, Mail, Facebook, Instagram, Camera, ArrowRight, CheckCircle, Search, Heart, PenTool, Image as ImageIcon } from 'lucide-react';
+        import { Phone, MapPin, Clock, Menu, X, ChevronRight, ChevronDown, Calendar, Star, Smile, Activity, ShieldCheck, Mail, Facebook, Instagram, Camera, ArrowRight, CheckCircle, Search, Heart, PenTool, Image as ImageIcon } from 'lucide-react';
 
         const WhatsAppIcon = ({ size = 24, className = "" }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -257,12 +257,16 @@
             { title: "Transformare Totală", category: "Reabilitare", before: "./bdccaz6before.png", after: "./bdccazafter.png" }
         ];
 
+        const makeId = (title) => title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
         const Header = ({ setPage, currentPage, isScrolled }) => {
             const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+            const [isSpecialtiesDropdownOpen, setIsSpecialtiesDropdownOpen] = useState(false);
+            const [mobileSpecialtiesExpanded, setMobileSpecialtiesExpanded] = useState(false);
 
             const navLinks = [
                 { id: 'home', label: 'Acasă' },
-                { id: 'specialties', label: 'Specialități' },
+                { id: 'specialties', label: 'Specialități', isDropdown: true },
                 { id: 'prices', label: 'Tarife' },
                 { id: 'gallery', label: 'Galerie' },
                 { id: 'contact', label: 'Contact' },
@@ -290,15 +294,50 @@
 
                     <nav className="hidden md:flex items-center gap-8">
                     {navLinks.map((link) => (
-                        <button
-                        key={link.id}
-                        onClick={() => setPage(link.id)}
-                        className={`text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary-600
-                            ${currentPage === link.id ? 'text-primary-900 border-b-2 border-primary-900 pb-1' : (isScrolled || currentPage !== 'home' ? 'text-gray-600' : 'text-white')}
-                        `}
-                        >
-                        {link.label}
-                        </button>
+                        link.isDropdown ? (
+                            <div 
+                                key={link.id}
+                                className="relative group"
+                                onMouseEnter={() => setIsSpecialtiesDropdownOpen(true)}
+                                onMouseLeave={() => setIsSpecialtiesDropdownOpen(false)}
+                            >
+                                <button
+                                    onClick={() => setPage(link.id)}
+                                    className={`text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary-600 flex items-center gap-1
+                                        ${currentPage === link.id ? 'text-primary-900 border-b-2 border-primary-900 pb-1' : (isScrolled || currentPage !== 'home' ? 'text-gray-600' : 'text-white')}
+                                    `}
+                                >
+                                    {link.label}
+                                    <ChevronDown size={14} className={`transition-transform duration-300 ${isSpecialtiesDropdownOpen ? 'rotate-180' : ''}`} />
+                                </button>
+                                <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 origin-top ${isSpecialtiesDropdownOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}`}>
+                                    <div className="py-2">
+                                        {specialties.map((spec, idx) => (
+                                            <button 
+                                                key={idx}
+                                                onClick={() => {
+                                                    setPage('specialties', makeId(spec.title));
+                                                    setIsSpecialtiesDropdownOpen(false);
+                                                }}
+                                                className="w-full text-left px-5 py-3 text-sm font-medium text-gray-700 hover:bg-primary-50 hover:text-primary-900 transition-colors border-b border-gray-50 last:border-0"
+                                            >
+                                                {spec.title}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <button
+                                key={link.id}
+                                onClick={() => setPage(link.id)}
+                                className={`text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary-600
+                                    ${currentPage === link.id ? 'text-primary-900 border-b-2 border-primary-900 pb-1' : (isScrolled || currentPage !== 'home' ? 'text-gray-600' : 'text-white')}
+                                `}
+                            >
+                            {link.label}
+                            </button>
+                        )
                     ))}
                     <a 
                         href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} 
@@ -320,16 +359,54 @@
                 {mobileMenuOpen && (
                     <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-2xl border-t border-gray-100 py-6 px-6 flex flex-col gap-4 animate-in slide-in-from-top-5">
                     {navLinks.map((link) => (
-                        <button
-                        key={link.id}
-                        onClick={() => {
-                            setPage(link.id);
-                            setMobileMenuOpen(false);
-                        }}
-                        className={`text-left text-lg font-medium py-3 border-b border-gray-100 ${currentPage === link.id ? 'text-primary-900 font-bold' : 'text-gray-800'}`}
-                        >
-                        {link.label}
-                        </button>
+                        link.isDropdown ? (
+                            <div key={link.id} className="flex flex-col border-b border-gray-100">
+                                <div className="flex justify-between items-center py-3">
+                                    <button
+                                        onClick={() => {
+                                            setPage(link.id);
+                                            setMobileMenuOpen(false);
+                                        }}
+                                        className={`text-left text-lg font-medium ${currentPage === link.id ? 'text-primary-900 font-bold' : 'text-gray-800'}`}
+                                    >
+                                        {link.label}
+                                    </button>
+                                    <button 
+                                        onClick={() => setMobileSpecialtiesExpanded(!mobileSpecialtiesExpanded)}
+                                        className="p-2 text-gray-500 hover:text-primary-900 hover:bg-gray-50 rounded-lg"
+                                    >
+                                        <ChevronDown size={20} className={`transition-transform duration-300 ${mobileSpecialtiesExpanded ? 'rotate-180' : ''}`} />
+                                    </button>
+                                </div>
+                                {mobileSpecialtiesExpanded && (
+                                    <div className="flex flex-col pl-4 pb-3 space-y-3 border-l-2 border-primary-100 ml-2 animate-in fade-in duration-300">
+                                        {specialties.map((spec, idx) => (
+                                            <button
+                                                key={idx}
+                                                onClick={() => {
+                                                    setPage('specialties', makeId(spec.title));
+                                                    setMobileMenuOpen(false);
+                                                }}
+                                                className="text-left text-sm font-medium text-gray-600 hover:text-primary-900 transition-colors"
+                                            >
+                                                {spec.title}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <button
+                            key={link.id}
+                            onClick={() => {
+                                setPage(link.id);
+                                setMobileMenuOpen(false);
+                            }}
+                            className={`text-left text-lg font-medium py-3 border-b border-gray-100 ${currentPage === link.id ? 'text-primary-900 font-bold' : 'text-gray-800'}`}
+                            >
+                            {link.label}
+                            </button>
+                        )
                     ))}
                     </div>
                 )}
@@ -610,9 +687,22 @@
         </section>
     </div>
 );
-        const SpecialtiesPage = () => (
-            <div className="pt-32 pb-24 bg-white min-h-screen animate-in fade-in duration-500">
-                <div className="container mx-auto px-4 max-w-7xl">
+        const SpecialtiesPage = ({ targetSection }) => {
+            useEffect(() => {
+                if (targetSection) {
+                    setTimeout(() => {
+                        const el = document.getElementById(targetSection);
+                        if (el) {
+                            const y = el.getBoundingClientRect().top + window.scrollY - 100;
+                            window.scrollTo({ top: y, behavior: 'smooth' });
+                        }
+                    }, 100);
+                }
+            }, [targetSection]);
+
+            return (
+                <div className="pt-32 pb-24 bg-white min-h-screen animate-in fade-in duration-500">
+                    <div className="container mx-auto px-4 max-w-7xl">
                     <div className="text-center max-w-3xl mx-auto mb-20">
                         <span className="font-cursive text-primary-500 text-3xl md:text-4xl block mb-2">Tratamente Personalizate</span>
                         <h2 className="text-5xl font-heading font-bold text-gray-900 mb-6">Specialitățile Noastre</h2>
@@ -626,7 +716,7 @@
                         {specialties.map((spec, index) => {
                             const isEven = index % 2 === 0;
                             return (
-                                <div key={index} className={`flex flex-col lg:flex-row gap-12 items-center mb-28 group ${isEven ? '' : 'lg:flex-row-reverse'}`}>
+                                <div id={makeId(spec.title)} key={index} className={`flex flex-col lg:flex-row gap-12 items-center mb-28 group scroll-mt-24 ${isEven ? '' : 'lg:flex-row-reverse'}`}>
                                     <div className="w-full lg:w-1/2 space-y-6">
                                         <div className="inline-flex items-center justify-center p-5 bg-primary-50 rounded-3xl mb-2 group-hover:bg-primary-100 transition-colors shadow-sm">
                                             {spec.icon}
@@ -668,7 +758,8 @@
                     </div>
                 </div>
             </div>
-        );
+            );
+        };
 
         const PricesPage = () => (
             <div className="pt-32 pb-24 bg-white min-h-screen animate-in fade-in duration-500">
@@ -738,9 +829,7 @@
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                         {clinicalCases.map((caz, idx) => (
                         <div key={idx} className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden flex flex-col group hover:shadow-2xl transition-shadow duration-300">
-                            {/* Split Image Container */}
                             <div className="flex w-full relative bg-gray-100">
-                                {/* Before */}
                                 <div className="w-1/2 relative overflow-hidden border-r-2 border-white aspect-[3/4]">
                                     <img 
                                         src={caz.before} 
@@ -751,7 +840,6 @@
                                         Înainte
                                     </div>
                                 </div>
-                                {/* After */}
                                 <div className="w-1/2 relative overflow-hidden aspect-[3/4]">
                                     <img 
                                         src={caz.after} 
@@ -762,11 +850,9 @@
                                         După
                                     </div>
                                 </div>
-                                {/* Center Divider Line */}
                                 <div className="absolute top-0 bottom-0 left-1/2 w-1 bg-white/40 transform -translate-x-1/2 z-10 pointer-events-none shadow-[0_0_15px_rgba(0,0,0,0.15)]"></div>
                             </div>
                             
-                            {/* Text Context */}
                             <div className="p-6 md:p-8 flex flex-col items-center text-center bg-white relative z-20">
                                 <div className="inline-block bg-primary-50 text-primary-900 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-3 border border-primary-100">
                                     {caz.category}
@@ -817,6 +903,7 @@
         const App = () => {
             const [currentPage, setCurrentPage] = useState('home');
             const [isScrolled, setIsScrolled] = useState(false);
+            const [targetSection, setTargetSection] = useState(null);
 
             useEffect(() => {
                 const handleScroll = () => {
@@ -827,29 +914,36 @@
             }, []);
 
             useEffect(() => {
-                window.scrollTo(0, 0);
-            }, [currentPage]);
+                if (!targetSection) {
+                    window.scrollTo(0, 0);
+                }
+            }, [currentPage, targetSection]);
+
+            const navigateTo = (pageId, sectionId = null) => {
+                setCurrentPage(pageId);
+                setTargetSection(sectionId);
+            };
 
             const renderPage = () => {
                 switch(currentPage) {
-                case 'home': return <HomePage setPage={setCurrentPage} />;
-                case 'specialties': return <SpecialtiesPage />;
+                case 'home': return <HomePage setPage={navigateTo} />;
+                case 'specialties': return <SpecialtiesPage targetSection={targetSection} />;
                 case 'prices': return <PricesPage />;
                 case 'gallery': return <GalleryPage />;
                 case 'contact': return <ContactPage />;
-                default: return <HomePage setPage={setCurrentPage} />;
+                default: return <HomePage setPage={navigateTo} />;
                 }
             };
 
             return (
                 <div className="font-sans text-gray-800 antialiased selection:bg-primary-200 selection:text-primary-900">
-                <Header setPage={setCurrentPage} currentPage={currentPage} isScrolled={isScrolled} />
+                <Header setPage={navigateTo} currentPage={currentPage} isScrolled={isScrolled} />
                 
                 <main className="min-h-screen">
                     {renderPage()}
                 </main>
                 
-                <Footer setPage={setCurrentPage} />
+                <Footer setPage={navigateTo} />
                 
                 <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
                     <a 
@@ -875,7 +969,6 @@
 
         const root = createRoot(document.getElementById('root'));
         root.render(<App />);
-
     </script>
 </body>
 </html>
