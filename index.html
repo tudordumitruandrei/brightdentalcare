@@ -234,53 +234,57 @@ const beforeAfterCases = [
   {
     title: "Albire Dentară",
     category: "Estetică",
-    // too cropped on sides => zoom OUT a bit
-    before: { src: "./albiredentara1.jpeg", rotate: 90, zoom: 1.05, pos: "center" },
-    after: { src: "./albiredentara2.jpeg", rotate: 0, zoom: 1.1, pos: "center" },
+    // rotate stays; zoom out a bit more so sides/mouth fit better
+    before: { src: "./albiredentara1.jpeg", rotate: 90, zoom: 1.0, pos: "center", y: 0 },
+    // keep "După" normal, slight zoom
+    after: { src: "./albiredentara2.jpeg", rotate: 0, zoom: 1.06, pos: "center", y: 0 },
   },
   {
     title: "Închidere Spații (Chipsuri)",
     category: "Estetică",
-    // "Înainte" not visible => zoom OUT + move DOWN a bit
+    // "Înainte" still tight => zoom OUT + move DOWN to center mouth
     before: {
       src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare1.jpeg",
       rotate: 0,
-      zoom: 1.02,
+      zoom: 0.98,
       pos: "center",
-      y: 12, // pushes image down inside the frame
+      y: 22,
     },
+    // reduce zoom a bit + small downward shift
     after: {
       src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare2.jpeg",
       rotate: 0,
-      zoom: 1.08,
+      zoom: 1.03,
       pos: "center",
+      y: 10,
     },
   },
   {
     title: "Reabilitare Estetică",
     category: "Protetica",
-    // zoom OUT more on both
-    before: { src: "./bdccaz6before.png", rotate: 0, zoom: 1.05, pos: "center" },
-    after: { src: "./bdccazafter.png", rotate: 0, zoom: 1.05, pos: "center" },
+    // zoom OUT more on both so teeth fit fully in the frame
+    before: { src: "./bdccaz6before.png", rotate: 0, zoom: 0.98, pos: "center", y: 0 },
+    after: { src: "./bdccazafter.png", rotate: 0, zoom: 0.98, pos: "center", y: 0 },
   },
   {
     title: "Implantologie",
     category: "Implantologie",
-    before: { src: "./bdccaz1.jpeg", rotate: 0, zoom: 1, pos: "top" },
-    after: { src: "./bdccaz4.jpeg", rotate: 0, zoom: 1, pos: "top" },
+    // keep as-is (already OK)
+    before: { src: "./bdccaz1.jpeg", rotate: 0, zoom: 1, pos: "top", y: 0 },
+    after: { src: "./bdccaz4.jpeg", rotate: 0, zoom: 1, pos: "top", y: 0 },
   },
   {
     title: "Coroane Dentare",
     category: "Protetica",
-    // too cropped on sides => zoom OUT a bit
-    before: { src: "./caz5.jpeg", rotate: 90, zoom: 1.12, pos: "center" },
-    after: { src: "./bdccaz5after.png", rotate: 0, zoom: 1, pos: "top" },
+    // sideways photo: keep rotate, but zoom OUT so it doesn't crop
+    before: { src: "./caz5.jpeg", rotate: 90, zoom: 1.02, pos: "center", y: 0 },
+    after: { src: "./bdccaz5after.png", rotate: 0, zoom: 1, pos: "top", y: 0 },
   },
   {
     title: "Zâmbet Natural",
     category: "Estetică",
-    before: { src: "./bdccaz2.jpeg", rotate: 0, zoom: 1, pos: "top" },
-    after: { src: "./bdccaz3.jpeg", rotate: 0, zoom: 1, pos: "top" },
+    before: { src: "./bdccaz2.jpeg", rotate: 0, zoom: 1, pos: "top", y: 0 },
+    after: { src: "./bdccaz3.jpeg", rotate: 0, zoom: 1, pos: "top", y: 0 },
   },
 ];
 
