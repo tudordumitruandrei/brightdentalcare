@@ -229,75 +229,62 @@ const galleryImages = [
 ];
 
 // Clinical Cases / Transformations (Before & After Grouped)
+// Added per-image transforms: rotate + zoom + position
 const beforeAfterCases = [
   {
     title: "Albire Dentară",
     category: "Estetică",
-    before: { src: "./albiredentara1.jpeg" },
-    after: { src: "./albiredentara2.jpeg" },
+    before: { src: "./albiredentara1.jpeg", rotate: 90, zoom: 1.15, pos: "center" },
+    after: { src: "./albiredentara2.jpeg", rotate: 90, zoom: 1.15, pos: "center" },
   },
   {
     title: "Închidere Spații (Chipsuri)",
     category: "Estetică",
-    before: { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare1.jpeg" },
-    after: { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare2.jpeg" },
-    // FIX: these need less cropping => contain + centered
-    fit: "contain",
-    pos: "center",
+    before: { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare1.jpeg", zoom: 1.25, pos: "center" },
+    after: { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare2.jpeg", zoom: 1.25, pos: "center" },
   },
   {
     title: "Reabilitare Estetică",
     category: "Protetica",
-    before: { src: "./bdccaz6before.png" },
-    after: { src: "./bdccazafter.png" },
-    // FIX: avoid cutting important area
-    fit: "contain",
-    pos: "center",
+    before: { src: "./bdccaz6before.png", zoom: 1.25, pos: "center" },
+    after: { src: "./bdccazafter.png", zoom: 1.25, pos: "center" },
   },
   {
     title: "Implantologie",
     category: "Implantologie",
-    before: { src: "./bdccaz1.jpeg" },
-    after: { src: "./bdccaz4.jpeg" },
+    before: { src: "./bdccaz1.jpeg", pos: "top" },
+    after: { src: "./bdccaz4.jpeg", pos: "top" },
   },
   {
     title: "Coroane Dentare",
     category: "Protetica",
-    before: { src: "./caz5.jpeg" },
-    after: { src: "./bdccaz5after.png" },
-    // FIX: before image needs less cropping
-    beforeFit: "contain",
-    beforePos: "center",
+    // rotate the "Înainte" and zoom so it fills the frame (your screenshot shows it sideways)
+    before: { src: "./caz5.jpeg", rotate: -90, zoom: 1.35, pos: "center" },
+    after: { src: "./bdccaz5after.png", pos: "top" },
   },
   {
     title: "Zâmbet Natural",
     category: "Estetică",
-    before: { src: "./bdccaz2.jpeg" },
-    after: { src: "./bdccaz3.jpeg" },
+    before: { src: "./bdccaz2.jpeg", pos: "top" },
+    after: { src: "./bdccaz3.jpeg", pos: "top" },
   },
 ];
 
 const BeforeAfterCard = ({ data }) => {
-  // Defaults (good for most cases)
-  const beforeFit = data.beforeFit || data.fit || "cover";
-  const afterFit = data.afterFit || data.fit || "cover";
-  const beforePos = data.beforePos || data.pos || "top";
-  const afterPos = data.afterPos || data.pos || "top";
+  const before = data.before || {};
+  const after = data.after || {};
 
-  const beforeFitClass = beforeFit === "contain" ? "object-contain" : "object-cover";
-  const afterFitClass = afterFit === "contain" ? "object-contain" : "object-cover";
+  const beforeRotate = Number.isFinite(before.rotate) ? before.rotate : 0;
+  const afterRotate = Number.isFinite(after.rotate) ? after.rotate : 0;
 
-  // Tailwind supports object-[...] arbitrary values
-  const beforePosClass =
-    beforePos === "center" ? "object-center" : beforePos === "top" ? "object-top" : "object-top";
-  const afterPosClass =
-    afterPos === "center" ? "object-center" : afterPos === "top" ? "object-top" : "object-top";
+  const beforeZoom = Number.isFinite(before.zoom) ? before.zoom : 1;
+  const afterZoom = Number.isFinite(after.zoom) ? after.zoom : 1;
 
-  // When using contain, give a little padding + neutral background so it still looks premium
-  const beforeBoxBg = beforeFit === "contain" ? "bg-white" : "bg-gray-100";
-  const afterBoxBg = afterFit === "contain" ? "bg-white" : "bg-gray-100";
-  const beforePad = beforeFit === "contain" ? "p-2" : "";
-  const afterPad = afterFit === "contain" ? "p-2" : "";
+  const beforePos = before.pos || "top";
+  const afterPos = after.pos || "top";
+
+  const beforePosClass = beforePos === "center" ? "object-center" : "object-top";
+  const afterPosClass = afterPos === "center" ? "object-center" : "object-top";
 
   return (
     <div className="bg-white rounded-3xl overflow-hidden shadow-lg border border-primary-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group flex flex-col h-full">
@@ -308,30 +295,31 @@ const BeforeAfterCard = ({ data }) => {
         </span>
       </div>
 
-      {/* Fixed heights => all cards align perfectly in 2 rows x 3 columns */}
       <div className="flex flex-col gap-1 bg-gray-200 flex-grow min-h-[420px]">
         {/* Înainte */}
-        <div className={`relative w-full ${beforeBoxBg} h-[210px] overflow-hidden ${beforePad}`}>
+        <div className="relative w-full bg-gray-100 h-[210px] overflow-hidden">
           <div className="absolute top-3 left-3 z-10 bg-black/60 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md shadow-lg border border-white/20">
             Înainte
           </div>
           <img
-            src={data.before.src}
+            src={before.src}
             alt={`${data.title} - Înainte`}
-            className={`w-full h-full ${beforeFitClass} ${beforePosClass} block transition-transform duration-700 group-hover:scale-105`}
+            className={`w-full h-full object-cover ${beforePosClass} block transition-transform duration-700 group-hover:scale-105`}
+            style={{ transform: `rotate(${beforeRotate}deg) scale(${beforeZoom})` }}
             loading="lazy"
           />
         </div>
 
         {/* După */}
-        <div className={`relative w-full ${afterBoxBg} h-[210px] overflow-hidden ${afterPad}`}>
+        <div className="relative w-full bg-gray-100 h-[210px] overflow-hidden">
           <div className="absolute top-3 right-3 z-10 bg-primary-900 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg shadow-primary-900/40 border border-primary-400/30">
             După
           </div>
           <img
-            src={data.after.src}
+            src={after.src}
             alt={`${data.title} - După`}
-            className={`w-full h-full ${afterFitClass} ${afterPosClass} block transition-transform duration-700 group-hover:scale-105`}
+            className={`w-full h-full object-cover ${afterPosClass} block transition-transform duration-700 group-hover:scale-105`}
+            style={{ transform: `rotate(${afterRotate}deg) scale(${afterZoom})` }}
             loading="lazy"
           />
         </div>
@@ -804,10 +792,9 @@ const BeforeAfterCard = ({ data }) => {
             </div>
         );
 
-    const GalleryPage = () => (
+const GalleryPage = () => (
   <div className="pt-32 pb-24 bg-gray-50 min-h-screen animate-in fade-in duration-500">
     <div className="container mx-auto px-4 max-w-7xl">
-      {/* Sectiunea 1: Cazuri Clinice Before/After */}
       <div className="mb-32">
         <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center p-4 bg-primary-100 rounded-full text-primary-900 mb-6 shadow-sm">
@@ -824,7 +811,6 @@ const BeforeAfterCard = ({ data }) => {
           </p>
         </div>
 
-        {/* 2 rows x 3 columns on desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
           {beforeAfterCases.map((data, idx) => (
             <BeforeAfterCard key={`${data.title}-${idx}`} data={data} />
@@ -832,7 +818,6 @@ const BeforeAfterCard = ({ data }) => {
         </div>
       </div>
 
-      {/* Sectiunea 2: Clinica */}
       <div>
         <div className="text-center mb-16">
           <span className="font-cursive text-primary-500 text-3xl md:text-4xl block mb-2">Te așteptăm cu drag</span>
