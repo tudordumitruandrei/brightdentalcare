@@ -900,17 +900,42 @@
             </div>
         );
 
-        const App = () => {
-            const [currentPage, setCurrentPage] = useState('home');
-            const [isScrolled, setIsScrolled] = useState(false);
-            const [targetSection, setTargetSection] = useState(null);
+const App = () => {
+            // 1. Această funcție citește URL-ul sau preia redirecționarea din 404.html
+            const getInitialState = () => {
+                const searchParams = new URLSearchParams(window.location.search);
+                const redirectPath = searchParams.get('p');
+                
+                if (redirectPath) {
+                    window.history.replaceState(null, '', redirectPath);
+                    return redirectPath.substring(1) || 'home';
+                }
+                const path = window.location.pathname.substring(1);
+                return path || 'home';
+            };
 
+            // 2. Setăm starea inițială pe baza URL-ului citit mai sus
+            const [currentPage, setCurrentPage] = useState(getInitialState());
+            const [isScrolled, setIsScrolled] = useState(false);
+            const [targetSection, setTargetSection] = useState(window.location.hash ? window.location.hash.substring(1) : null);
+
+            // 3. Ascultăm scroll-ul și butoanele de Back/Forward din browser (popstate)
             useEffect(() => {
                 const handleScroll = () => {
-                setIsScrolled(window.scrollY > 30);
+                    setIsScrolled(window.scrollY > 30);
                 };
                 window.addEventListener('scroll', handleScroll);
-                return () => window.removeEventListener('scroll', handleScroll);
+
+                const handlePopState = () => {
+                    setCurrentPage(window.location.pathname.substring(1) || 'home');
+                    setTargetSection(window.location.hash ? window.location.hash.substring(1) : null);
+                };
+                window.addEventListener('popstate', handlePopState);
+
+                return () => {
+                    window.removeEventListener('scroll', handleScroll);
+                    window.removeEventListener('popstate', handlePopState);
+                };
             }, []);
 
             useEffect(() => {
@@ -919,9 +944,14 @@
                 }
             }, [currentPage, targetSection]);
 
+            // 4. Când dai click pe un link din meniu, schimbăm și URL-ul sus în browser
             const navigateTo = (pageId, sectionId = null) => {
                 setCurrentPage(pageId);
                 setTargetSection(sectionId);
+                
+                const newPath = `/${pageId === 'home' ? '' : pageId}`;
+                const newHash = sectionId ? `#${sectionId}` : '';
+                window.history.pushState(null, '', newPath + newHash);
             };
 
             const renderPage = () => {
