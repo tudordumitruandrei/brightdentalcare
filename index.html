@@ -221,114 +221,56 @@
             }
         ];
 
-        // Atmosphere / Clinic Photos
+// Atmosphere / Clinic Photos
 const galleryImages = [
   { src: "./bdcintrare.jpeg", caption: "Recepție și Intrare" },
   { src: "./bdchol.jpeg", caption: "Zonă de Așteptare" },
   { src: "./bdccabinet.jpeg", caption: "Cabinet Stomatologic Modern" },
 ];
 
-// Clinical Cases / Transformations
-// Keep the SAME "single image" shape your page likely expects,
-// but add: groupId + stage (before/after) so you can render pairs nicely,
-// and add your new images.
+// Clinical Cases / Transformations (BEFORE / AFTER grouped as requested)
 const clinicalCases = [
-  // Albire (pair)
   {
-    src: "./albiredentara1.jpeg",
-    caption: "Procedură Albire Dentară",
+    before: { src: "./albiredentara1.jpeg", caption: "Before" },
+    after: { src: "./albiredentara2.jpeg", caption: "After" },
+    caption: "Albire dentară",
     category: "Albire",
-    groupId: "albire-1",
-    stage: "before",
   },
   {
-    src: "./albiredentara2.jpeg",
-    caption: "Rezultat Albire Dentară",
-    category: "Albire",
-    groupId: "albire-1",
-    stage: "after",
-  },
-
-  // Estetică (pair)
-  {
-    src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare1.jpeg",
-    caption: "Spațiere Interdentară",
+    before: {
+      src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare1.jpeg",
+      caption: "Before",
+    },
+    after: {
+      src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare2.jpeg",
+      caption: "After",
+    },
+    caption: "Chipsuri ceramice – închidere spații interdentare",
     category: "Estetică",
-    groupId: "estetica-1",
-    stage: "before",
   },
   {
-    src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare2.jpeg",
-    caption: "Chipsuri Ceramice",
-    category: "Estetică",
-    groupId: "estetica-1",
-    stage: "after",
-  },
-
-  // Protetica (pair)
-  {
-    src: "./bdccaz2.jpeg",
-    caption: "Reabilitare Estetică",
-    category: "Protetica",
-    groupId: "protetica-1",
-    stage: "before",
-  },
-  {
-    src: "./bdccaz3.jpeg",
-    caption: "Zâmbet Natural",
-    category: "Protetica",
-    groupId: "protetica-1",
-    stage: "after",
-  },
-
-  // Implantologie (pair using your new after image)
-  {
-    src: "./bdccaz1.jpeg",
+    before: { src: "./bdccaz1.jpeg", caption: "Before" },
+    after: { src: "./bdccaz4.jpeg", caption: "After" },
     caption: "Implantologie",
     category: "Implantologie",
-    groupId: "implant-1",
-    stage: "before",
   },
   {
-    src: "./bdccazafter.png",
-    caption: "Rezultat Implantologie",
-    category: "Implantologie",
-    groupId: "implant-1",
-    stage: "after",
-  },
-
-  // Reabilitare (pair using your new before/after images)
-  {
-    src: "./bdccaz6before.png",
-    caption: "Caz Complex (Before)",
-    category: "Reabilitare",
-    groupId: "reabilitare-1",
-    stage: "before",
-  },
-  {
-    src: "./bdccaz5after.png",
-    caption: "Caz Complex (After)",
-    category: "Reabilitare",
-    groupId: "reabilitare-1",
-    stage: "after",
-  },
-
-  // Keep this existing one as standalone (doesn't have a clear pair)
-  {
-    src: "./bdccaz4.jpeg",
-    caption: "Caz Complex",
-    category: "Reabilitare",
-    groupId: "reabilitare-extra",
-    stage: "single",
-  },
-
-  // Keep this existing one as standalone (doesn't have a clear pair)
-  {
-    src: "./caz5.jpeg",
-    caption: "Verificare Culoare",
+    before: { src: "./bdccaz2.jpeg", caption: "Before" },
+    after: { src: "./bdccaz3.jpeg", caption: "After" },
+    caption: "Reabilitare estetică",
     category: "Protetica",
-    groupId: "protetica-extra",
-    stage: "single",
+  },
+  {
+    before: { src: "./caz5.jpeg", caption: "Before" },
+    after: { src: "./bdccaz5after.png", caption: "After" },
+    caption: "Verificare culoare",
+    category: "Protetica",
+  },
+  {
+    before: { src: "./bdccaz6before.jpeg", caption: "Before" },
+    after: { src: "./bdccazafter.png", caption: "After" },
+    caption: "Caz clinic",
+    category: "Reabilitare",
   },
 ];
         // --- COMPONENTS ---
