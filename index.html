@@ -221,14 +221,14 @@
             }
         ];
 
-        // Atmosphere / Clinic Photos
+// Atmosphere / Clinic Photos
 const galleryImages = [
   { src: "./bdcintrare.jpeg", caption: "Recepție și Intrare" },
   { src: "./bdchol.jpeg", caption: "Zonă de Așteptare" },
   { src: "./bdccabinet.jpeg", caption: "Cabinet Stomatologic Modern" },
 ];
 
-// Clinical Cases / Transformations (Before & After grouped)
+// Clinical Cases / Transformations (Before & After Grouped)
 const beforeAfterCases = [
   {
     title: "Albire Dentară",
@@ -277,8 +277,10 @@ const BeforeAfterCard = ({ data }) => (
       </span>
     </div>
 
-    <div className="flex flex-col gap-1 bg-gray-200 flex-grow">
-      <div className="relative w-full bg-gray-100 flex-1 overflow-hidden">
+    {/* Fixed heights => all cards align perfectly in 2 rows x 3 columns */}
+    <div className="flex flex-col gap-1 bg-gray-200 flex-grow min-h-[420px]">
+      {/* Înainte */}
+      <div className="relative w-full bg-gray-100 h-[210px] overflow-hidden">
         <div className="absolute top-3 left-3 z-10 bg-black/60 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md shadow-lg border border-white/20">
           Înainte
         </div>
@@ -290,7 +292,8 @@ const BeforeAfterCard = ({ data }) => (
         />
       </div>
 
-      <div className="relative w-full bg-gray-100 flex-1 overflow-hidden">
+      {/* După */}
+      <div className="relative w-full bg-gray-100 h-[210px] overflow-hidden">
         <div className="absolute top-3 right-3 z-10 bg-primary-900 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg shadow-primary-900/40 border border-primary-400/30">
           După
         </div>
@@ -769,7 +772,7 @@ const BeforeAfterCard = ({ data }) => (
             </div>
         );
 
-      const GalleryPage = () => (
+     const GalleryPage = () => (
   <div className="pt-32 pb-24 bg-gray-50 min-h-screen animate-in fade-in duration-500">
     <div className="container mx-auto px-4 max-w-7xl">
       {/* Sectiunea 1: Cazuri Clinice Before/After */}
@@ -789,7 +792,8 @@ const BeforeAfterCard = ({ data }) => (
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {/* 2 rows x 3 columns on desktop (lg:grid-cols-3) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
           {beforeAfterCases.map((data, idx) => (
             <BeforeAfterCard key={`${data.title}-${idx}`} data={data} />
           ))}
