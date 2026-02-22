@@ -241,12 +241,18 @@ const beforeAfterCases = [
     category: "Estetică",
     before: { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare1.jpeg" },
     after: { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare2.jpeg" },
+    // FIX: these need less cropping => contain + centered
+    fit: "contain",
+    pos: "center",
   },
   {
     title: "Reabilitare Estetică",
     category: "Protetica",
     before: { src: "./bdccaz6before.png" },
     after: { src: "./bdccazafter.png" },
+    // FIX: avoid cutting important area
+    fit: "contain",
+    pos: "center",
   },
   {
     title: "Implantologie",
@@ -259,6 +265,9 @@ const beforeAfterCases = [
     category: "Protetica",
     before: { src: "./caz5.jpeg" },
     after: { src: "./bdccaz5after.png" },
+    // FIX: before image needs less cropping
+    beforeFit: "contain",
+    beforePos: "center",
   },
   {
     title: "Zâmbet Natural",
@@ -268,45 +277,68 @@ const beforeAfterCases = [
   },
 ];
 
-const BeforeAfterCard = ({ data }) => (
-  <div className="bg-white rounded-3xl overflow-hidden shadow-lg border border-primary-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group flex flex-col h-full">
-    <div className="p-5 bg-gradient-to-r from-primary-50 to-white border-b border-primary-100 flex justify-between items-center">
-      <h3 className="font-heading font-bold text-primary-900 text-lg md:text-xl">{data.title}</h3>
-      <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-primary-600 bg-white px-3 py-1.5 rounded-full shadow-sm border border-primary-100">
-        {data.category}
-      </span>
-    </div>
+const BeforeAfterCard = ({ data }) => {
+  // Defaults (good for most cases)
+  const beforeFit = data.beforeFit || data.fit || "cover";
+  const afterFit = data.afterFit || data.fit || "cover";
+  const beforePos = data.beforePos || data.pos || "top";
+  const afterPos = data.afterPos || data.pos || "top";
 
-    {/* Fixed heights => all cards align perfectly in 2 rows x 3 columns */}
-    <div className="flex flex-col gap-1 bg-gray-200 flex-grow min-h-[420px]">
-      {/* Înainte */}
-      <div className="relative w-full bg-gray-100 h-[210px] overflow-hidden">
-        <div className="absolute top-3 left-3 z-10 bg-black/60 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md shadow-lg border border-white/20">
-          Înainte
-        </div>
-        <img
-          src={data.before.src}
-          alt={`${data.title} - Înainte`}
-          className="w-full h-full object-cover object-top block transition-transform duration-700 group-hover:scale-105"
-          loading="lazy"
-        />
+  const beforeFitClass = beforeFit === "contain" ? "object-contain" : "object-cover";
+  const afterFitClass = afterFit === "contain" ? "object-contain" : "object-cover";
+
+  // Tailwind supports object-[...] arbitrary values
+  const beforePosClass =
+    beforePos === "center" ? "object-center" : beforePos === "top" ? "object-top" : "object-top";
+  const afterPosClass =
+    afterPos === "center" ? "object-center" : afterPos === "top" ? "object-top" : "object-top";
+
+  // When using contain, give a little padding + neutral background so it still looks premium
+  const beforeBoxBg = beforeFit === "contain" ? "bg-white" : "bg-gray-100";
+  const afterBoxBg = afterFit === "contain" ? "bg-white" : "bg-gray-100";
+  const beforePad = beforeFit === "contain" ? "p-2" : "";
+  const afterPad = afterFit === "contain" ? "p-2" : "";
+
+  return (
+    <div className="bg-white rounded-3xl overflow-hidden shadow-lg border border-primary-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group flex flex-col h-full">
+      <div className="p-5 bg-gradient-to-r from-primary-50 to-white border-b border-primary-100 flex justify-between items-center">
+        <h3 className="font-heading font-bold text-primary-900 text-lg md:text-xl">{data.title}</h3>
+        <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-primary-600 bg-white px-3 py-1.5 rounded-full shadow-sm border border-primary-100">
+          {data.category}
+        </span>
       </div>
 
-      {/* După */}
-      <div className="relative w-full bg-gray-100 h-[210px] overflow-hidden">
-        <div className="absolute top-3 right-3 z-10 bg-primary-900 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg shadow-primary-900/40 border border-primary-400/30">
-          După
+      {/* Fixed heights => all cards align perfectly in 2 rows x 3 columns */}
+      <div className="flex flex-col gap-1 bg-gray-200 flex-grow min-h-[420px]">
+        {/* Înainte */}
+        <div className={`relative w-full ${beforeBoxBg} h-[210px] overflow-hidden ${beforePad}`}>
+          <div className="absolute top-3 left-3 z-10 bg-black/60 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md shadow-lg border border-white/20">
+            Înainte
+          </div>
+          <img
+            src={data.before.src}
+            alt={`${data.title} - Înainte`}
+            className={`w-full h-full ${beforeFitClass} ${beforePosClass} block transition-transform duration-700 group-hover:scale-105`}
+            loading="lazy"
+          />
         </div>
-        <img
-          src={data.after.src}
-          alt={`${data.title} - După`}
-          className="w-full h-full object-cover object-top block transition-transform duration-700 group-hover:scale-105"
-          loading="lazy"
-        />
+
+        {/* După */}
+        <div className={`relative w-full ${afterBoxBg} h-[210px] overflow-hidden ${afterPad}`}>
+          <div className="absolute top-3 right-3 z-10 bg-primary-900 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg shadow-primary-900/40 border border-primary-400/30">
+            După
+          </div>
+          <img
+            src={data.after.src}
+            alt={`${data.title} - După`}
+            className={`w-full h-full ${afterFitClass} ${afterPosClass} block transition-transform duration-700 group-hover:scale-105`}
+            loading="lazy"
+          />
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
         // --- COMPONENTS ---
 
         const Header = ({ setPage, currentPage, isScrolled }) => {
@@ -772,7 +804,7 @@ const BeforeAfterCard = ({ data }) => (
             </div>
         );
 
-     const GalleryPage = () => (
+    const GalleryPage = () => (
   <div className="pt-32 pb-24 bg-gray-50 min-h-screen animate-in fade-in duration-500">
     <div className="container mx-auto px-4 max-w-7xl">
       {/* Sectiunea 1: Cazuri Clinice Before/After */}
@@ -792,7 +824,7 @@ const BeforeAfterCard = ({ data }) => (
           </p>
         </div>
 
-        {/* 2 rows x 3 columns on desktop (lg:grid-cols-3) */}
+        {/* 2 rows x 3 columns on desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
           {beforeAfterCases.map((data, idx) => (
             <BeforeAfterCard key={`${data.title}-${idx}`} data={data} />
