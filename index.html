@@ -277,7 +277,7 @@ const BeforeAfterCard = ({ data }) => (
       </span>
     </div>
 
-    {/* IMPORTANT: fixed height + cover + top positioning => vertical smiles show up/down */}
+    {/* Vertical-friendly: cover + top keeps smiles visible up->down */}
     <div className="flex flex-col gap-1 bg-gray-200 flex-grow">
       {/* Înainte */}
       <div className="relative w-full bg-gray-100 flex-1 overflow-hidden">
@@ -288,6 +288,7 @@ const BeforeAfterCard = ({ data }) => (
           src={data.before.src}
           alt={`${data.title} - Înainte`}
           className="w-full h-full object-cover object-top block transition-transform duration-700 group-hover:scale-105"
+          loading="lazy"
         />
       </div>
 
@@ -300,6 +301,7 @@ const BeforeAfterCard = ({ data }) => (
           src={data.after.src}
           alt={`${data.title} - După`}
           className="w-full h-full object-cover object-top block transition-transform duration-700 group-hover:scale-105"
+          loading="lazy"
         />
       </div>
     </div>
@@ -328,7 +330,7 @@ const GalleryPage = () => (
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {beforeAfterCases.map((data, idx) => (
-            <BeforeAfterCard key={idx} data={data} />
+            <BeforeAfterCard key={`${data.title}-${idx}`} data={data} />
           ))}
         </div>
       </div>
@@ -347,13 +349,14 @@ const GalleryPage = () => (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {galleryImages.map((img, idx) => (
             <div
-              key={idx}
+              key={`${img.src}-${idx}`}
               className="group relative overflow-hidden rounded-3xl shadow-lg border border-gray-200 aspect-[4/3]"
             >
               <img
                 src={img.src}
                 alt={`Bright Dental Care - ${img.caption}`}
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent opacity-80 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-8">
                 <span className="text-white font-heading font-bold text-xl">{img.caption}</span>
@@ -365,6 +368,10 @@ const GalleryPage = () => (
     </div>
   </div>
 );
+
+// Renderare finală (keep ONLY if this file is responsible for mounting React)
+const root = createRoot(document.getElementById("root"));
+root.render(<GalleryPage />);
         
         // --- COMPONENTS ---
 
