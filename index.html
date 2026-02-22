@@ -257,7 +257,14 @@
             { title: "Transformare Totală", category: "Reabilitare", before: "./bdccaz6before.png", after: "./bdccazafter.png" }
         ];
 
-        const makeId = (title) => title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const makeId = (title) => {
+            return title
+                .toLowerCase()
+                .normalize("NFD") // Descompune caracterele (ex: ș devine s + accent)
+                .replace(/[\u0300-\u036f]/g, "") // Elimină accentele/diacriticele
+                .replace(/[^a-z0-9]+/g, '-') // Înlocuiește spațiile/caracterele speciale cu cratimă
+                .replace(/^-+|-+$/g, ''); // Șterge cratimele în plus de la început/sfârșit
+        };
 
         const Header = ({ setPage, currentPage, isScrolled }) => {
             const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -900,26 +907,37 @@
             </div>
         );
 
-const App = () => {
-            // 1. Această funcție citește URL-ul sau preia redirecționarea din 404.html
+        const App = () => {
+            // Definim maparea între starea internă și rutele în limba română
+            const routeMap = {
+                'home': '',
+                'specialties': 'specialitati',
+                'prices': 'tarife',
+                'gallery': 'galerie',
+                'contact': 'contact'
+            };
+
             const getInitialState = () => {
                 const searchParams = new URLSearchParams(window.location.search);
                 const redirectPath = searchParams.get('p');
+                let path = '';
                 
                 if (redirectPath) {
                     window.history.replaceState(null, '', redirectPath);
-                    return redirectPath.substring(1) || 'home';
+                    path = redirectPath.substring(1); // scoate slash-ul din față
+                } else {
+                    path = window.location.pathname.substring(1);
                 }
-                const path = window.location.pathname.substring(1);
-                return path || 'home';
+
+                // Găsește ID-ul stării pe baza rutei din URL
+                const foundState = Object.keys(routeMap).find(key => routeMap[key] === path);
+                return foundState || 'home';
             };
 
-            // 2. Setăm starea inițială pe baza URL-ului citit mai sus
             const [currentPage, setCurrentPage] = useState(getInitialState());
             const [isScrolled, setIsScrolled] = useState(false);
             const [targetSection, setTargetSection] = useState(window.location.hash ? window.location.hash.substring(1) : null);
 
-            // 3. Ascultăm scroll-ul și butoanele de Back/Forward din browser (popstate)
             useEffect(() => {
                 const handleScroll = () => {
                     setIsScrolled(window.scrollY > 30);
@@ -927,7 +945,9 @@ const App = () => {
                 window.addEventListener('scroll', handleScroll);
 
                 const handlePopState = () => {
-                    setCurrentPage(window.location.pathname.substring(1) || 'home');
+                    const path = window.location.pathname.substring(1);
+                    const foundState = Object.keys(routeMap).find(key => routeMap[key] === path);
+                    setCurrentPage(foundState || 'home');
                     setTargetSection(window.location.hash ? window.location.hash.substring(1) : null);
                 };
                 window.addEventListener('popstate', handlePopState);
@@ -944,12 +964,13 @@ const App = () => {
                 }
             }, [currentPage, targetSection]);
 
-            // 4. Când dai click pe un link din meniu, schimbăm și URL-ul sus în browser
             const navigateTo = (pageId, sectionId = null) => {
                 setCurrentPage(pageId);
                 setTargetSection(sectionId);
                 
-                const newPath = `/${pageId === 'home' ? '' : pageId}`;
+                // Folosește ruta în română corespunzătoare ID-ului
+                const route = routeMap[pageId] || '';
+                const newPath = `/${route}`;
                 const newHash = sectionId ? `#${sectionId}` : '';
                 window.history.pushState(null, '', newPath + newHash);
             };
