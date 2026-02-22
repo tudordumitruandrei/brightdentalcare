@@ -234,39 +234,53 @@ const beforeAfterCases = [
   {
     title: "Albire Dentară",
     category: "Estetică",
+    // keep "Înainte" as it is now (rotated)
     before: { src: "./albiredentara1.jpeg", rotate: 90, zoom: 1.15, pos: "center" },
-    after: { src: "./albiredentara2.jpeg", rotate: 90, zoom: 1.15, pos: "center" },
+    // bring "După" back (no rotation), keep slight zoom for framing
+    after: { src: "./albiredentara2.jpeg", rotate: 0, zoom: 1.1, pos: "center" },
   },
   {
     title: "Închidere Spații (Chipsuri)",
     category: "Estetică",
-    before: { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare1.jpeg", zoom: 1.25, pos: "center" },
-    after: { src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare2.jpeg", zoom: 1.25, pos: "center" },
+    // zoom was too much => reduce so "Înainte" is visible
+    before: {
+      src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare1.jpeg",
+      rotate: 0,
+      zoom: 1.1,
+      pos: "center",
+    },
+    after: {
+      src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare2.jpeg",
+      rotate: 0,
+      zoom: 1.12,
+      pos: "center",
+    },
   },
   {
     title: "Reabilitare Estetică",
     category: "Protetica",
-    before: { src: "./bdccaz6before.png", zoom: 1.25, pos: "center" },
-    after: { src: "./bdccazafter.png", zoom: 1.25, pos: "center" },
+    // zoomed too much => zoom out a bit
+    before: { src: "./bdccaz6before.png", rotate: 0, zoom: 1.12, pos: "center" },
+    after: { src: "./bdccazafter.png", rotate: 0, zoom: 1.12, pos: "center" },
   },
   {
     title: "Implantologie",
     category: "Implantologie",
-    before: { src: "./bdccaz1.jpeg", pos: "top" },
-    after: { src: "./bdccaz4.jpeg", pos: "top" },
+    before: { src: "./bdccaz1.jpeg", rotate: 0, zoom: 1, pos: "top" },
+    after: { src: "./bdccaz4.jpeg", rotate: 0, zoom: 1, pos: "top" },
   },
   {
     title: "Coroane Dentare",
     category: "Protetica",
-    // rotate the "Înainte" and zoom so it fills the frame (your screenshot shows it sideways)
-    before: { src: "./caz5.jpeg", rotate: -90, zoom: 1.35, pos: "center" },
-    after: { src: "./bdccaz5after.png", pos: "top" },
+    // was upside down => rotate the other way so it looks correct
+    before: { src: "./caz5.jpeg", rotate: 90, zoom: 1.28, pos: "center" },
+    after: { src: "./bdccaz5after.png", rotate: 0, zoom: 1, pos: "top" },
   },
   {
     title: "Zâmbet Natural",
     category: "Estetică",
-    before: { src: "./bdccaz2.jpeg", pos: "top" },
-    after: { src: "./bdccaz3.jpeg", pos: "top" },
+    before: { src: "./bdccaz2.jpeg", rotate: 0, zoom: 1, pos: "top" },
+    after: { src: "./bdccaz3.jpeg", rotate: 0, zoom: 1, pos: "top" },
   },
 ];
 
