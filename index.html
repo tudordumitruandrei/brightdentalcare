@@ -282,7 +282,7 @@ const beforeAfterCases = [
   },
 ];
 
-const BeforeAfterCard = ({ data }) => {
+cconst BeforeAfterCard = ({ data }) => {
   const before = data.before || {};
   const after = data.after || {};
 
@@ -292,11 +292,27 @@ const BeforeAfterCard = ({ data }) => {
   const beforeZoom = Number.isFinite(before.zoom) ? before.zoom : 1;
   const afterZoom = Number.isFinite(after.zoom) ? after.zoom : 1;
 
-  const beforePos = before.pos || "top";
-  const afterPos = after.pos || "top";
+  const beforeY = Number.isFinite(before.y) ? before.y : 0;
+  const afterY = Number.isFinite(after.y) ? after.y : 0;
 
-  const beforePosClass = beforePos === "center" ? "object-center" : "object-top";
-  const afterPosClass = afterPos === "center" ? "object-center" : "object-top";
+  const beforePos = before.pos || "center";
+  const afterPos = after.pos || "center";
+
+  const posToBg = (pos) => {
+    if (pos === "top") return "50% 0%";
+    if (pos === "bottom") return "50% 100%";
+    return "50% 50%";
+  };
+
+  const tileStyle = (img) => ({
+    backgroundImage: img?.src ? `url("${img.src}")` : "none",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: `${(Number.isFinite(img?.zoom) ? img.zoom : 1) * 100}%`,
+    backgroundPosition: `50% calc(${posToBg(img?.pos || "center").split(" ")[1]} + ${
+      Number.isFinite(img?.y) ? img.y : 0
+    }px)`,
+    transform: `rotate(${Number.isFinite(img?.rotate) ? img.rotate : 0}deg)`,
+  });
 
   return (
     <div className="bg-white rounded-3xl overflow-hidden shadow-lg border border-primary-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group flex flex-col h-full">
@@ -313,12 +329,9 @@ const BeforeAfterCard = ({ data }) => {
           <div className="absolute top-3 left-3 z-10 bg-black/60 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md shadow-lg border border-white/20">
             Înainte
           </div>
-          <img
-            src={before.src}
-            alt={`${data.title} - Înainte`}
-            className={`w-full h-full object-cover ${beforePosClass} block transition-transform duration-700 group-hover:scale-105`}
-            style={{ transform: `rotate(${beforeRotate}deg) scale(${beforeZoom})` }}
-            loading="lazy"
+          <div
+            className="w-full h-full transition-transform duration-700 group-hover:scale-105"
+            style={tileStyle({ ...before, zoom: beforeZoom, rotate: beforeRotate, y: beforeY })}
           />
         </div>
 
@@ -327,12 +340,9 @@ const BeforeAfterCard = ({ data }) => {
           <div className="absolute top-3 right-3 z-10 bg-primary-900 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg shadow-primary-900/40 border border-primary-400/30">
             După
           </div>
-          <img
-            src={after.src}
-            alt={`${data.title} - După`}
-            className={`w-full h-full object-cover ${afterPosClass} block transition-transform duration-700 group-hover:scale-105`}
-            style={{ transform: `rotate(${afterRotate}deg) scale(${afterZoom})` }}
-            loading="lazy"
+          <div
+            className="w-full h-full transition-transform duration-700 group-hover:scale-105"
+            style={tileStyle({ ...after, zoom: afterZoom, rotate: afterRotate, y: afterY })}
           />
         </div>
       </div>
