@@ -203,42 +203,49 @@
                 description: "Sănătatea dentară pe termen lung se bazează pe o fundație solidă. Evaluările noastre clinice detaliate ne permit să identificăm timpuriu orice afecțiune, preîntâmpinând complicațiile. Un program corect de profilaxie include igienizări profesionale periodice, detartraj, fluorizare și instruirea pacientului pentru menținerea unei igiene orale optime acasă.",
                 services: ["Consultație primară și plan tratament", "Pachet igienizare complet", "Sigilare dinte", "Fluorizare profesională"],
                 icon: <ToothGeneralIcon className="text-primary-900" />,
+                image: "./diagnosticsipreventie.jpeg"
             },
             {
                 title: "Terapie Restaurativă",
                 description: "Redarea funcționalității și esteticii dintelui afectat de carie se realizează prin intervenții atente și conservatoare. Folosim materiale compozite moderne care se adaptează perfect cromaticii naturale a dinților. Obiectivul nostru este să conservăm cât mai mult din structura dentară sănătoasă, reconstruind morfologia dintelui pentru o masticație corectă.",
                 services: ["Obturații compozit fizionomice", "Reconstrucție cu pivot din fibră", "Coafaj direct și indirect"],
                 icon: <ToothGeneralIcon className="text-primary-900" />,
+                image: "./terapierestaurativa.jpeg"
             },
             {
                 title: "Endodonție (Tratament Canal)",
                 description: "Tratamentul endodontic are rolul de a salva un dinte profund afectat de infecții sau traumatisme, evitând extracția acestuia. Procedura presupune curățarea, dezinfectarea și sigilarea canalelor radiculare cu o precizie riguroasă. Un tratament de canal corect executat prelungește considerabil durata de viață a dintelui natural pe arcadă.",
                 services: ["Extirpare vitală și tratament", "Tratament pluriradicular complex", "Retratament endodontic", "Pansament antiseptic"],
                 icon: <ToothRootIcon className="text-primary-900" />,
+                image: "./Endodonție (Tratament Canal) .webp"
             },
             {
                 title: "Chirurgie și Implantologie",
                 description: "Abordăm cazurile complexe cu o planificare atentă, de la extracții necesare până la reabilitări orale extinse prin implanturi dentare. Implantul reprezintă soluția optimă pentru înlocuirea dinților absenți, restabilind atât funcția masticatorie, cât și fizionomia. Fiecare intervenție este pregătită minuțios, având la bază investigații radiologice detaliate.",
                 services: ["Extracții dentare complexe", "Implant dentar și Sinus Lift", "Sisteme integrate All on 4 / All on 6"],
                 icon: <ImplantIcon className="text-primary-900" />,
+                image: "./chirurgesiimplantologie.jpeg"
             },
             {
                 title: "Protetică și Estetică",
                 description: "Reconstrucția zâmbetului îmbină rigoarea funcțională cu rafinamentul estetic. Lucrările protetice – fie că vorbim despre coroane ceramice sau din zirconiu, fie despre fațete dentare – sunt personalizate pentru fizionomia fiecărui pacient. Adaptarea marginală precisă și biocompatibilitatea materialelor asigură integrarea perfectă a lucrării în armonia feței.",
                 services: ["Coroane metalo-ceramice și Zirconiu", "Fațete ceramice E-max", "Proteze totale și parțiale acrilice"],
                 icon: <ToothSparkleIcon className="text-primary-900" />,
+                image: "./proteticasiestetica.webp"
             },
             {
                 title: "Ortodonție",
                 description: "Alinierea corectă a dinților depășește sfera esteticii, fiind esențială pentru o ocluzie (mușcătură) stabilă și o igienizare eficientă. Tratamentele ortodontice corectează anomaliile dento-maxilare, redistribuind forțele masticatorii și prevenind uzura prematură a dinților. Planul de tratament este structurat și adaptat vârstei și nevoilor specifice.",
                 services: ["Consultație și analiză ortodontică", "Aparat fix metalic sau de Safir", "Aparate mobile interceptive pentru copii"],
                 icon: <BracesIcon className="text-primary-900" />,
+                image: "./Ortodontie.jpeg"
             },
             {
                 title: "Pedodonție (Copii)",
                 description: "Prima interacțiune a copilului cu medicul stomatolog setează tonul pentru întreaga viață. Ne concentrăm pe crearea unui mediu prietenos, calm, explicând fiecare pas pe înțelesul celor mici. Tratamentele vizează menținerea sănătății dentiției temporare (dinții de lapte) și pun un accent puternic pe educarea copiilor în spiritul unei rutine corecte.",
                 services: ["Consultație de acomodare", "Obturații dinți temporari", "Extracții ghidate dinți de lapte"],
                 icon: <ToothChildIcon className="text-primary-900" />,
+                image: "./pedodontie.jpg"
             }
         ];
 
@@ -254,7 +261,7 @@
             { title: "Reabilitare Complexă (Caz 1)", category: "Implantologie", before: "./bdccaz1.jpeg", after: "./bdccaz4.jpeg" },
             { title: "Reabilitare Estetică (Caz 2)", category: "Protetica", before: "./bdccaz2.jpeg", after: "./bdccaz3.jpeg" },
             { title: "Restaurare Zâmbet (Caz 3)", category: "Protetica", before: "./caz5.jpeg", after: "./bdccaz5after.png" },
-            { title: "Transformare Totală", category: "Reabilitare", before: "./bdccaz6before.png", after: "./bdccazafter.png" }
+            { title: "Transformare Totală", category: "Reabilitare", before: "./bdccaz6before.jpeg", after: "./bdccazafter.png" }
         ];
 
         const makeId = (title) => {
@@ -747,17 +754,27 @@
                                         </div>
                                     </div>
 
-                                    <div className="w-full lg:w-1/2 h-[400px] lg:h-[480px] bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400 hover:bg-gray-100 hover:border-primary-300 hover:text-primary-900 transition-all duration-300 relative overflow-hidden group-hover:shadow-lg cursor-pointer">
-                                        <div className="absolute inset-0 bg-primary-900/[0.02] opacity-0 hover:opacity-100 transition-opacity"></div>
-                                        
-                                        <div className="bg-white p-6 rounded-full shadow-sm mb-6 z-10">
-                                            <ImageIcon size={40} className="opacity-70" />
-                                        </div>
-                                        <div className="text-center z-10 px-8">
-                                            <span className="font-heading font-bold text-xl block mb-2 text-gray-700">Placeholder Poză</span>
-                                            <span className="text-primary-600 font-medium text-lg">{spec.title}</span>
-                                            <p className="text-sm mt-4 font-light text-gray-500 uppercase tracking-wider">Aici vei insera o imagine</p>
-                                        </div>
+                                    <div className="w-full lg:w-1/2 h-[400px] lg:h-[480px] rounded-[3rem] overflow-hidden relative group-hover:shadow-xl transition-all duration-500">
+                                        {spec.image ? (
+                                            <img 
+                                                src={spec.image} 
+                                                alt={spec.title} 
+                                                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full bg-gray-50 border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400 hover:bg-gray-100 hover:border-primary-300 hover:text-primary-900 transition-all duration-300 cursor-pointer rounded-[3rem]">
+                                                <div className="absolute inset-0 bg-primary-900/[0.02] opacity-0 hover:opacity-100 transition-opacity"></div>
+                                                
+                                                <div className="bg-white p-6 rounded-full shadow-sm mb-6 z-10">
+                                                    <ImageIcon size={40} className="opacity-70" />
+                                                </div>
+                                                <div className="text-center z-10 px-8">
+                                                    <span className="font-heading font-bold text-xl block mb-2 text-gray-700">Placeholder Poză</span>
+                                                    <span className="text-primary-600 font-medium text-lg">{spec.title}</span>
+                                                    <p className="text-sm mt-4 font-light text-gray-500 uppercase tracking-wider">Aici vei insera o imagine</p>
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             );
