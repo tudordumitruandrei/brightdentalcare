@@ -234,50 +234,43 @@ const beforeAfterCases = [
   {
     title: "Albire Dentară",
     category: "Estetică",
-    // rotate stays; zoom out a bit more so sides/mouth fit better
-    before: { src: "./albiredentara1.jpeg", rotate: 90, zoom: 1.0, pos: "center", y: 0 },
-    // keep "După" normal, slight zoom
-    after: { src: "./albiredentara2.jpeg", rotate: 0, zoom: 1.06, pos: "center", y: 0 },
+    before: { src: "./albiredentara1.jpeg", rotate: 90, zoom: 0.92, pos: "center", y: 8 },
+    after: { src: "./albiredentara2.jpeg", rotate: 0, zoom: 1.02, pos: "center", y: 6 },
   },
   {
     title: "Închidere Spații (Chipsuri)",
     category: "Estetică",
-    // "Înainte" still tight => zoom OUT + move DOWN to center mouth
     before: {
       src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare1.jpeg",
       rotate: 0,
-      zoom: 0.98,
+      zoom: 0.9,
       pos: "center",
-      y: 22,
+      y: 28,
     },
-    // reduce zoom a bit + small downward shift
     after: {
       src: "./chipsuri ceramice pentru inchiderea soatiilor interdentare2.jpeg",
       rotate: 0,
-      zoom: 1.03,
+      zoom: 0.98,
       pos: "center",
-      y: 10,
+      y: 16,
     },
   },
   {
     title: "Reabilitare Estetică",
     category: "Protetica",
-    // zoom OUT more on both so teeth fit fully in the frame
-    before: { src: "./bdccaz6before.png", rotate: 0, zoom: 0.98, pos: "center", y: 0 },
-    after: { src: "./bdccazafter.png", rotate: 0, zoom: 0.98, pos: "center", y: 0 },
+    before: { src: "./bdccaz6before.png", rotate: 0, zoom: 0.92, pos: "center", y: 10 },
+    after: { src: "./bdccazafter.png", rotate: 0, zoom: 0.92, pos: "center", y: 10 },
   },
   {
     title: "Implantologie",
     category: "Implantologie",
-    // keep as-is (already OK)
     before: { src: "./bdccaz1.jpeg", rotate: 0, zoom: 1, pos: "top", y: 0 },
     after: { src: "./bdccaz4.jpeg", rotate: 0, zoom: 1, pos: "top", y: 0 },
   },
   {
     title: "Coroane Dentare",
     category: "Protetica",
-    // sideways photo: keep rotate, but zoom OUT so it doesn't crop
-    before: { src: "./caz5.jpeg", rotate: 90, zoom: 1.02, pos: "center", y: 0 },
+    before: { src: "./caz5.jpeg", rotate: 90, zoom: 0.92, pos: "center", y: 18 },
     after: { src: "./bdccaz5after.png", rotate: 0, zoom: 1, pos: "top", y: 0 },
   },
   {
