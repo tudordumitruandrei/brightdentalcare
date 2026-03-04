@@ -289,22 +289,16 @@
             return (
                 <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-3' : 'bg-transparent py-5'}`}>
                 <div className="container mx-auto px-4 flex justify-between items-center">
-                    <div 
-                    onClick={() => setPage('home')}
-                    className="cursor-pointer flex items-center gap-3 group"
-                    >
-                        <div className="bg-primary-900 text-white p-2 rounded-xl group-hover:scale-105 transition-transform shadow-lg shadow-primary-900/30">
-                            <img src="./Mask group (26).png" alt="Icon" className="w-8 h-8 object-contain" />
-                        </div>
-                        <div className="flex flex-col">
-                            <h1 className={`text-3xl font-cursive font-bold leading-none tracking-wide ${isScrolled || currentPage !== 'home' ? 'text-gray-900' : 'text-white'}`}>
-                                Bright <span className="text-primary-900">Dental</span>
-                            </h1>
-                            <p className={`text-[9px] uppercase tracking-[0.25em] font-medium mt-1 ${isScrolled || currentPage !== 'home' ? 'text-gray-500' : 'text-gray-200'}`}>
-                                Care Timișoara
-                            </p>
-                        </div>
-                    </div>
+<div 
+  onClick={() => setPage('home')}
+  className="cursor-pointer flex items-center"
+>
+  <img 
+    src="./brightdentalcarelogo.png" 
+    alt="Bright Dental Care"
+    className="h-12 md:h-14 w-auto object-contain"
+  />
+</div>
 
                     <nav className="hidden md:flex items-center gap-8">
                     {navLinks.map((link) => (
