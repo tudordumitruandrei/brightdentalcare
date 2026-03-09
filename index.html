@@ -547,73 +547,81 @@ const ContactSection = ({ className = "" }) => (
 );
 
         const Footer = ({ setPage }) => (
-            <footer className="bg-gray-900 text-white pt-20 pb-10">
-                <div className="container mx-auto px-4">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-                    <div className="col-span-1 md:col-span-1">
-                    <div className="flex items-center gap-3 mb-6 opacity-90">
-                        <div className="bg-primary-900 p-2 rounded-xl">
-                            <img src="./Frame 2 (Traced).png" alt="Icon" className="w-6 h-6 object-contain" />
-                        </div>
-                        <h2 className="text-2xl font-cursive font-bold text-white">
-                            Bright <span className="text-primary-400">Dental</span>
-                        </h2>
-                    </div>
-                    <p className="text-gray-400 mb-8 text-sm leading-relaxed font-light">
-                        Clinica ta de încredere în Timișoara. Oferim servicii stomatologice complete, de la prevenție la reabilitări orale complexe, într-un mediu modern și primitor.
-                    </p>
-                    <div className="flex gap-4">
-                        <a href="#" className="bg-gray-800 p-3 rounded-full hover:bg-primary-600 hover:text-white text-gray-400 transition-all"><Facebook size={18} /></a>
-                        <a href="#" className="bg-gray-800 p-3 rounded-full hover:bg-primary-600 hover:text-white text-gray-400 transition-all"><Instagram size={18} /></a>
-                    </div>
-                    </div>
+    <footer className="bg-gray-900 text-white pt-20 pb-10">
+        <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            
+            <div className="col-span-1 md:col-span-1">
+            <div className="flex items-center gap-3 mb-6 opacity-90">
+                <img 
+                    src="./brightdentallogo.png" 
+                    alt="Bright Dental Care" 
+                    className="h-12 object-contain"
+                />
+            </div>
 
-                    <div>
-                    <h3 className="text-lg font-heading font-bold mb-6 text-white">Link-uri Rapide</h3>
-                    <ul className="space-y-3 text-gray-400 text-sm font-light">
-                        <li><button onClick={() => setPage('home')} className="hover:text-primary-400 flex items-center gap-2 transition-colors"><ChevronRight size={14}/> Acasă</button></li>
-                        <li><button onClick={() => setPage('specialties')} className="hover:text-primary-400 flex items-center gap-2 transition-colors"><ChevronRight size={14}/> Specialități</button></li>
-                        <li><button onClick={() => setPage('prices')} className="hover:text-primary-400 flex items-center gap-2 transition-colors"><ChevronRight size={14}/> Lista de Prețuri</button></li>
-                        <li><button onClick={() => setPage('gallery')} className="hover:text-primary-400 flex items-center gap-2 transition-colors"><ChevronRight size={14}/> Galerie Cazuri</button></li>
-                        <li><button onClick={() => setPage('contact')} className="hover:text-primary-400 flex items-center gap-2 transition-colors"><ChevronRight size={14}/> Contact</button></li>
-                    </ul>
-                    </div>
+            <p className="text-gray-400 mb-8 text-sm leading-relaxed font-light">
+                Clinica ta de încredere în Timișoara. Oferim servicii stomatologice complete, de la prevenție la reabilitări orale complexe, într-un mediu modern și primitor.
+            </p>
 
-                    <div>
-                    <h3 className="text-lg font-heading font-bold mb-6 text-white">Program</h3>
-                    <ul className="space-y-3 text-gray-400 text-sm font-light">
-                        <li className="flex justify-between border-b border-gray-800 pb-2"><span>Luni - Vineri:</span> <span className="text-white font-medium">09:00 - 20:00</span></li>
-                        <li className="flex justify-between border-b border-gray-800 pb-2"><span>Sâmbătă:</span> <span className="text-primary-400">Închis</span></li>
-                        <li className="flex justify-between"><span>Duminică:</span> <span className="text-primary-400">Închis</span></li>
-                    </ul>
-                    </div>
+            <div className="flex gap-4">
+                <a href="#" className="bg-gray-800 p-3 rounded-full hover:bg-primary-600 hover:text-white text-gray-400 transition-all"><Facebook size={18} /></a>
+                <a href="#" className="bg-gray-800 p-3 rounded-full hover:bg-primary-600 hover:text-white text-gray-400 transition-all"><Instagram size={18} /></a>
+            </div>
+            </div>
 
-                    <div>
-                    <h3 className="text-lg font-heading font-bold mb-6 text-white">Contact</h3>
-                    <ul className="space-y-4 text-gray-400 text-sm font-light">
-                        <li className="flex items-start gap-4">
-                        <MapPin className="text-primary-500 mt-1 flex-shrink-0" size={20} />
-                        <span>{contactInfo.address}</span>
-                        </li>
-                        <li className="flex items-center gap-4">
-                        <Phone className="text-primary-500 flex-shrink-0" size={20} />
-                        <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} className="hover:text-white text-lg font-medium transition-colors">{contactInfo.phone}</a>
-                        </li>
-                        <li className="flex items-center gap-4">
-                        <Mail className="text-primary-500 flex-shrink-0" size={20} />
-                        <span>{contactInfo.email}</span>
-                        </li>
-                    </ul>
-                    </div>
-                </div>
-                
-                <div className="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm font-light flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p>&copy; {new Date().getFullYear()} Bright Dental Care. Toate drepturile rezervate.</p>
-                    <p>Creat cu pasiune pentru excelență.</p>
-                </div>
-                </div>
-            </footer>
-        );
+            <div>
+            <h3 className="text-lg font-heading font-bold mb-6 text-white">Link-uri Rapide</h3>
+            <ul className="space-y-3 text-gray-400 text-sm font-light">
+                <li><button onClick={() => setPage('home')} className="hover:text-primary-400 flex items-center gap-2 transition-colors"><ChevronRight size={14}/> Acasă</button></li>
+                <li><button onClick={() => setPage('specialties')} className="hover:text-primary-400 flex items-center gap-2 transition-colors"><ChevronRight size={14}/> Specialități</button></li>
+                <li><button onClick={() => setPage('prices')} className="hover:text-primary-400 flex items-center gap-2 transition-colors"><ChevronRight size={14}/> Lista de Prețuri</button></li>
+                <li><button onClick={() => setPage('gallery')} className="hover:text-primary-400 flex items-center gap-2 transition-colors"><ChevronRight size={14}/> Galerie Cazuri</button></li>
+                <li><button onClick={() => setPage('contact')} className="hover:text-primary-400 flex items-center gap-2 transition-colors"><ChevronRight size={14}/> Contact</button></li>
+            </ul>
+            </div>
+
+            <div>
+            <h3 className="text-lg font-heading font-bold mb-6 text-white">Program</h3>
+            <ul className="space-y-3 text-gray-400 text-sm font-light">
+                <li className="flex justify-between border-b border-gray-800 pb-2"><span>Luni - Vineri:</span> <span className="text-white font-medium">09:00 - 20:00</span></li>
+                <li className="flex justify-between border-b border-gray-800 pb-2"><span>Sâmbătă:</span> <span className="text-primary-400">Închis</span></li>
+                <li className="flex justify-between"><span>Duminică:</span> <span className="text-primary-400">Închis</span></li>
+            </ul>
+            </div>
+
+            <div>
+            <h3 className="text-lg font-heading font-bold mb-6 text-white">Contact</h3>
+            <ul className="space-y-4 text-gray-400 text-sm font-light">
+                <li className="flex items-start gap-4">
+                <MapPin className="text-primary-500 mt-1 flex-shrink-0" size={20} />
+                <span>{contactInfo.address}</span>
+                </li>
+
+                <li className="flex items-center gap-4">
+                <Phone className="text-primary-500 flex-shrink-0" size={20} />
+                <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} className="hover:text-white text-lg font-medium transition-colors">
+                    {contactInfo.phone}
+                </a>
+                </li>
+
+                <li className="flex items-center gap-4">
+                <Mail className="text-primary-500 flex-shrink-0" size={20} />
+                <span>{contactInfo.email}</span>
+                </li>
+            </ul>
+            </div>
+
+        </div>
+        
+        <div className="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm font-light flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>&copy; {new Date().getFullYear()} Bright Dental Care. Toate drepturile rezervate.</p>
+            <p>Creat cu pasiune pentru excelență.</p>
+        </div>
+
+        </div>
+    </footer>
+);
 
      const HomePage = ({ setPage }) => (
     <div className="animate-in fade-in duration-500">
