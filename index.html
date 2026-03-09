@@ -431,89 +431,120 @@
     );
 };
 
-        const ContactSection = ({ className = "" }) => (
-            <div className={`container mx-auto px-4 ${className}`}>
-                <div className="text-center mb-16">
-                    <span className="font-cursive text-primary-500 text-3xl md:text-4xl block mb-2">Ne bucurăm să te ajutăm</span>
-                    <h2 className="text-5xl font-heading font-bold text-gray-900 mb-6">Contactează-ne</h2>
-                    <div className="w-24 h-1 bg-primary-900 mx-auto rounded-full mb-6"></div>
-                    <p className="text-gray-600 text-lg font-light">Suntem aici pentru a răspunde întrebărilor tale și pentru a programa vizita ta.</p>
+const ContactSection = ({ className = "" }) => (
+<div className={`container mx-auto px-4 ${className}`}>
+    
+    <div className="text-center mb-16">
+        <span className="font-cursive text-primary-500 text-3xl md:text-4xl block mb-2">
+            Ne bucurăm să te ajutăm
+        </span>
+        <h2 className="text-5xl font-heading font-bold text-gray-900 mb-6">
+            Contactează-ne
+        </h2>
+        <div className="w-24 h-1 bg-primary-900 mx-auto rounded-full mb-6"></div>
+        <p className="text-gray-600 text-lg font-light">
+            Suntem aici pentru a răspunde întrebărilor tale și pentru a programa vizita ta.
+        </p>
+    </div>
+
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+
+        <div className="space-y-8">
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                <div className="bg-primary-50 p-8 rounded-2xl border border-primary-100 text-center hover:shadow-md transition-shadow">
+                    <Phone className="w-8 h-8 text-primary-900 mx-auto mb-4" />
+                    <h4 className="font-heading font-bold text-xl text-gray-900 mb-2">
+                        Telefon / WhatsApp
+                    </h4>
+                    <a href={`tel:${contactInfo.phone.replace(/\s/g,'')}`} 
+                       className="text-gray-600 hover:text-primary-900 font-medium">
+                        {contactInfo.phone}
+                    </a>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-                    <div className="space-y-8">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="bg-primary-50 p-8 rounded-2xl border border-primary-100 text-center hover:shadow-md transition-shadow">
-                        <Phone className="w-8 h-8 text-primary-900 mx-auto mb-4" />
-                        <h4 className="font-heading font-bold text-xl text-gray-900 mb-2">Telefon / WhatsApp</h4>
-                        <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} className="text-gray-600 hover:text-primary-900 font-medium">{contactInfo.phone}</a>
-                        </div>
-                        <div className="bg-primary-50 p-8 rounded-2xl border border-primary-100 text-center hover:shadow-md transition-shadow">
-                        <MapPin className="w-8 h-8 text-primary-900 mx-auto mb-4" />
-                        <h4 className="font-heading font-bold text-xl text-gray-900 mb-2">Adresă</h4>
-                        <p className="text-gray-600 text-sm">{contactInfo.address}</p>
-                        </div>
+                <div className="bg-primary-50 p-8 rounded-2xl border border-primary-100 text-center hover:shadow-md transition-shadow">
+                    <MapPin className="w-8 h-8 text-primary-900 mx-auto mb-4" />
+                    <h4 className="font-heading font-bold text-xl text-gray-900 mb-2">
+                        Adresă
+                    </h4>
+                    <p className="text-gray-600 text-sm">
+                        {contactInfo.address}
+                    </p>
+                </div>
+
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
+                <h4 className="font-heading font-bold text-2xl text-gray-900 mb-6 flex items-center gap-3">
+                    <Clock className="text-primary-900" size={24} /> Program de Lucru
+                </h4>
+
+                <div className="space-y-4 text-base">
+
+                    <div className="flex justify-between border-b border-gray-100 pb-4">
+                        <span className="text-gray-600">Luni - Vineri</span>
+                        <span className="font-bold text-primary-900">
+                            09:00 - 20:00
+                        </span>
                     </div>
 
-                    <div className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
-                        <h4 className="font-heading font-bold text-2xl text-gray-900 mb-6 flex items-center gap-3">
-                        <Clock className="text-primary-900" size={24} /> Program de Lucru
-                        </h4>
-                        <div className="space-y-4 text-base">
-                        <div className="flex justify-between border-b border-gray-100 pb-4">
-                            <span className="text-gray-600">Luni - Vineri</span>
-                            <span className="font-bold text-primary-900">09:00 - 20:00</span>
-                        </div>
-                        <div className="flex justify-between text-gray-400 pt-2">
-                            <span>Sâmbătă - Duminică</span>
-                            <span>Închis</span>
-                        </div>
-                        </div>
+                    <div className="flex justify-between text-gray-400 pt-2">
+                        <span>Sâmbătă - Duminică</span>
+                        <span>Închis</span>
                     </div>
 
-                    <div className="h-80 w-full rounded-2xl overflow-hidden shadow-lg border border-gray-200">
-                        <iframe 
-                        src={contactInfo.mapUrl}
-                        width="100%" 
-                        height="100%" 
-                        style={{border:0}} 
-                        allowFullScreen="" 
-                        loading="lazy" 
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title="Locatie Bright Dental Care"
-                        ></iframe>
-                    </div>
-                    </div>
-
-                    <div className="bg-white p-10 rounded-3xl shadow-xl border border-primary-50">
-                    <h3 className="text-3xl font-heading font-bold text-gray-900 mb-8">Trimite un mesaj</h3>
-                    <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-2">Nume complet</label>
-                            <input type="text" className="w-full px-5 py-4 bg-gray-50 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-900 focus:bg-white focus:border-transparent outline-none transition-all" placeholder="Numele tău" />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-2">Telefon</label>
-                            <input type="tel" className="w-full px-5 py-4 bg-gray-50 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-900 focus:bg-white focus:border-transparent outline-none transition-all" placeholder="07xx xxx xxx" />
-                        </div>
-                        </div>
-                        <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">Email</label>
-                        <input type="email" className="w-full px-5 py-4 bg-gray-50 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-900 focus:bg-white focus:border-transparent outline-none transition-all" placeholder="email@exemplu.com" />
-                        </div>
-                        <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">Cu ce te putem ajuta?</label>
-                        <textarea rows="4" className="w-full px-5 py-4 bg-gray-50 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-900 focus:bg-white focus:border-transparent outline-none transition-all" placeholder="Scrie mesajul tău aici..."></textarea>
-                        </div>
-                        <button className="w-full bg-primary-900 text-white font-bold text-lg py-4 rounded-xl hover:bg-primary-800 transition-colors shadow-lg shadow-primary-900/30">
-                        Trimite Mesajul
-                        </button>
-                    </form>
-                    </div>
                 </div>
             </div>
-        );
+
+            <div className="h-80 w-full rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+                <iframe 
+                    src={contactInfo.mapUrl}
+                    width="100%" 
+                    height="100%" 
+                    style={{border:0}} 
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Locatie Bright Dental Care"
+                ></iframe>
+            </div>
+
+        </div>
+
+
+        <div className="bg-white p-10 rounded-3xl shadow-xl border border-primary-50">
+
+            <h3 className="text-3xl font-heading font-bold text-gray-900 mb-8">
+                Trimite un mesaj
+            </h3>
+
+            <div className="w-full">
+
+                <iframe
+                    src="https://api.leadconnectorhq.com/widget/form/K1JXhuyf1Y4tjdHJcTQq"
+                    style={{width:"100%",height:"780px",border:"none",borderRadius:"8px"}}
+                    id="inline-K1JXhuyf1Y4tjdHJcTQq"
+                    data-layout="{'id':'INLINE'}"
+                    data-trigger-type="alwaysShow"
+                    data-activation-type="alwaysActivated"
+                    data-deactivation-type="neverDeactivate"
+                    data-form-name="Formular Website - Bright Dental Care Timisoara"
+                    data-height="781"
+                    data-layout-iframe-id="inline-K1JXhuyf1Y4tjdHJcTQq"
+                    data-form-id="K1JXhuyf1Y4tjdHJcTQq"
+                    title="Formular Website - Bright Dental Care Timisoara"
+                ></iframe>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+);
 
         const Footer = ({ setPage }) => (
             <footer className="bg-gray-900 text-white pt-20 pb-10">
